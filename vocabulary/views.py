@@ -1,0 +1,135 @@
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+
+from accounts.models import Partner
+from accounts.serializers import PartnerSerializer
+from .models import Vocabulary, Words
+from .serializers import VocabularySerializer, WordSerializer, TranslationSerializer
+
+from datetime import datetime
+import logging
+
+# Create your views here.
+
+class PartnerApi(APIView):
+	permission_classes=[IsAuthenticated]
+
+	def post(self, request):
+		method = request.data.get('method')
+
+		if method == 'get_me':
+			return self.get_me(request)
+		return Response({"Not allow method"})
+
+	def get_me(self, request):
+		user = request.user
+		logging.error(user)
+		if user:
+			partner = Partner.objects.get(user=user.id)
+			serializer = PartnerSerializer(partner)
+			return Response({"partner": serializer.data})
+		return Response({"403"})
+
+class VocabularyApi(APIView):
+	permission_classes=[IsAuthenticated]
+
+	def post(self, request):
+		method = request.data.get('method')
+
+		if method == 'get_vocabulary':
+			return self.get_vocabulary(request)
+		elif method == 'get_words':
+			return self.get_words(request)
+		elif method == 'create_vocabulary':
+			return self.create_vocabulary(request)
+		elif method == 'edit_vocabulary':
+			return self.edit_vocabulary(request)
+		elif method == 'delete_vocabulary':
+			return self.delete_vocabulary(request)
+		elif method == 'get_one_vocabulary':
+			return self.get_one_vocabulary(request)
+		elif method == 'create_word':
+			return self.create_word(request)
+		elif method == 'get_me':
+			return self.get_me(request)
+
+		return Response({"Not allow method"})
+
+	def get_vocabulary(self, request):
+		user = request.user
+		if user:
+			partner = Partner.objects.get(user=user.id)
+			vocabulary = Vocabulary.objects.filter(partner=partner.id)
+			serializer = VocabularySerializer(vocabulary, many=True)
+			return Response({"vocabulary": serializer.data})
+
+	def get_words(self, request):
+		idVocabulary = request.data.get('data').get('idVocabulary')
+
+		words = Words.objects.filter(vocabulary=idVocabulary)
+		serializer = WordSerializer(words, many=True)
+		return Response({"words": serializer.data})
+
+	def create_vocabulary(self, request):
+		data = request.data.get('data').get('vocabulary')
+		user = request.user
+		if user:
+			partner = Partner.objects.get(user=user.id)
+			data['partner'] = partner.id
+			serializer = VocabularySerializer(data=data)
+			if serializer.is_valid(raise_exception=True):
+				res = serializer.save()
+				return Response({"success": "Vocabulary '{}' created successfully".format(res.name),
+											 "status": "success"})
+
+	def	edit_vocabulary(self, request):
+		data = request.data.get('data').get('vocabulary')
+
+		vocabulary = Vocabulary.objects.get(pk=data['id'])
+		serializer = VocabularySerializer(vocabulary, data=data)
+		if serializer.is_valid(raise_exception=True):
+			res = serializer.save()
+			return Response({"success": "Vocabulary '{}' edited successfully".format(res.name),
+											 "status": "success"})
+
+	def	delete_vocabulary(self, request):
+		data = request.data.get('data').get('vocabulary')
+
+		try:
+			vocabulary = Vocabulary.objects.get(pk=data['id'])
+		except Vocabulary.DoesNotExist:
+			return HttpResponse(status=404)
+
+		vocabulary.delete()
+		return HttpResponse(status=204)
+
+	def	create_word(self, request):
+		data = request.data.get('data').get('word')
+
+		logging.error(data)
+		word = {
+			'word': data['word'],
+			'vocabulary': data['vocabulary']
+		}
+		serializer = WordSerializer(data=word)
+		if serializer.is_valid(raise_exception=True):
+			res = serializer.save()
+			for translate in data['translations']:
+				if translate and type(translate) == str and translate.strip() != '':
+					translate_data = {
+						'translate': translate,
+						'word': res.id
+					}
+					serializer = TranslationSerializer(data=translate_data)
+					if serializer.is_valid(raise_exception=False):
+						serializer.save()
+			return Response({"success": "Word '{}' created successfully".format(res.word),
+											 "status": "success"})
+
+	def get_one_vocabulary(self, request):
+		idVocabulary = request.data.get('data').get('idVocabulary')
+		vocabulary = Vocabulary.objects.get(id=idVocabulary)
+		serializer = VocabularySerializer(vocabulary)
+		return Response({"vocabulary": serializer.data})

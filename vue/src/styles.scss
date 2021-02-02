@@ -1,0 +1,370 @@
+@font-face {
+	font-family: "OpenSans";
+	src: url("~@/assets/fonts/OpenSans-Regular.ttf") format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "OpenSans";
+	src: url("~@/assets/fonts/OpenSans-Light.ttf") format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+@font-face {
+	font-family: "OpenSans";
+	src: url("~@/assets/fonts/OpenSans-SemiBold.ttf") format('truetype');
+	font-weight: 600;
+	font-style: normal;
+}
+@font-face {
+	font-family: "OpenSans";
+	src: url("~@/assets/fonts/OpenSans-Bold.ttf") format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: "OpenSans";
+	src: url("~@/assets/fonts/OpenSans-ExtraBold.ttf") format('truetype');
+	font-weight: 800;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Molengo";
+	src: url("~@/assets/fonts/Molengo-Regular.ttf") format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Lekton";
+	src: url("~@/assets/fonts/Lekton-Regular.ttf") format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+#app {
+	font-family: "OpenSans";
+	color: #2b2b2b;
+}
+button{
+	font-family: "OpenSans";
+	color: #2b2b2b;
+}
+ul{
+	padding: 0;
+	margin: 0;
+}
+li{
+	list-style-type: none;
+}
+body{
+	margin: 0;
+	background: #F5F5DC;
+	position: relative;
+}
+.container{
+	width: calc(100% - 70px);
+	max-width: 2000px;
+	margin: 0 auto;
+
+	display: flex;
+	justify-content: space-between;
+}
+.mat-div{
+	background: #fff;
+	border: solid 1px #e6e6e6;
+	border-radius: 8px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	box-shadow: 0px 8px 14px rgba(0, 0, 0, .1);
+}
+.flex-boxes{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+.flex-box:nth-child(3n+3){
+	margin-right: 0;
+}
+.flex-box{
+	margin-right: 20px;
+	margin-bottom: 20px;
+	width: calc(100%/3 - 46px/3);
+	height: 300px;
+	background: #fff;
+	border: solid 1px #e6e6e6;
+	border-radius: 8px;
+	box-shadow: 0px 8px 14px rgba(0, 0, 0, .1);
+	position: relative;
+}
+.right-flex-box{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	display: flex;
+}
+.left-flex-box{
+	position: absolute;
+	left: 20px;
+	top: 20px;
+}
+.flex-box-name{
+	height: 53%;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.logo-vocab{
+	padding-top: 20px;
+	font-size: 24px;
+  letter-spacing: 0.01px;
+  font-weight: 600;
+}
+.logo-ul-vocab{
+	font-size: 14px;
+}
+.right-flex-box-item{
+	color: #9a9898;
+	cursor: pointer;
+}
+.flex-box-buttons{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.flex-box-buttons .button-add{
+	height: 45px;
+	border-radius: 2px;
+	font-size: 18px;
+}
+.list-ul{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+}
+.list-ul li{
+	display: flex;
+	align-items: center;
+	height: 70px;
+	border-bottom: solid 1px #e6e6e6;
+
+	font-size: 14px;
+	letter-spacing: 0.01px;
+}
+.mat-title{
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	height: 60px;
+  border-bottom: solid 1px #e6e6e6;
+}
+.mat-title .mat-name{
+	font-size: 24px;
+	font-weight: 700;
+	letter-spacing: 0.01px;
+	margin-bottom: 9px;
+}
+.button-add{
+	height: 38px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 50px;
+	color: #9a9898;
+  border: solid 1px #9a9898;
+  cursor: pointer;
+
+  font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.01px;
+}
+
+.button-add:hover {
+	color: #376bff;
+  border: solid 1px #376bff; 
+}
+.list-item{
+	justify-content: space-between;
+	display: flex;
+}
+.list-item .list-ul-name{
+	font-size: 18px;
+	letter-spacing: 0.01px;
+	font-weight: 600;
+}
+.list-item .list-ul-date{
+	font-weight: 400;
+	font-size: 12px;
+	letter-spacing: 0.01px;
+	color: #9a9898;
+}
+.list-ul .rightpart-list{
+	display: flex;
+	justify-content: flex-end;
+}
+.button-add img{
+ width: 20px;
+}
+.mat-modal{
+	position: fixed;
+	top: 200px;
+	left: calc(50% - 200px);
+	width: 400px;
+	background: #fff;
+	border: solid 1px #e6e6e6;
+	border-radius: 8px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	box-shadow: 0px 8px 14px rgba(0, 0, 0, .1);
+}
+.big-modal{
+	top: 100px;
+	left: calc(50% - 400px);
+	width: 800px;
+}
+.back-modal{
+	width: 100%;
+	height: 100%;
+  position: fixed;
+  opacity: 0.7;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #e6e6e6;
+  left: 0;
+}
+.mat-modal .modal-title{
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: 0.01px;
+
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.mat-modal .modal-form{
+	width: 100%;
+}
+.mat-modal .modal-form input{
+
+}
+input{
+	height: 30px;
+	border: none;
+	border-bottom: solid 1px #9a9898;
+	width: 100%;
+	outline: none;
+
+  font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.01px;
+	font-family: "OpenSans";
+	color: #2b2b2b;
+}
+input::placeholder {
+	color: #9a9898;
+}
+.mat-modal .modal-form .modal-form-btns{
+	margin-top: 15px;
+	display: flex;
+	justify-content: flex-end;
+}
+.btn-cancel{
+	height: 38px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 50px;
+  cursor: pointer;
+  outline: none;
+  background: white;
+  color: #9a9898;
+  border: solid 1px #9a9898;
+
+  font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.01px;
+}
+.btn-submit{
+	height: 38px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 50px;
+	color: white;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background: #376bff;
+
+  font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.01px;
+}
+.home{
+	width: calc(100% - 180px);
+}
+.float-menu{
+	width: 170px;
+}
+.menu{
+	width: 148px;
+	position: fixed;
+
+	margin-top: 42px;
+	margin-bottom: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+}
+.menu .logo{
+	font-size: 28px;
+  letter-spacing: 0.01px;
+
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.menu .logo .logo-1{
+	font-family: "Molengo"
+}
+.menu .logo .logo-2{
+	font-family: "Lekton"
+}
+.menu .menu-items{
+	font-size: 14px;
+  letter-spacing: 0.01px;
+  height: 50px;
+}
+.menu .menu-items .menu-item{
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+.menu .menu-items .menu-item span{
+	margin-left: 10px;
+}
+.menu-line{
+	border-bottom: solid 1px #e6e6e6;
+	margin-bottom: 10px;
+}
+.add-words-translate input{
+	margin-bottom: 10px;
+}
+
