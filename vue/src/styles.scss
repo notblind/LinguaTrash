@@ -179,6 +179,7 @@ body{
 	color: #9a9898;
   border: solid 1px #9a9898;
   cursor: pointer;
+  outline: none;
 
   font-weight: 600;
 	font-size: 14px;
@@ -272,9 +273,32 @@ input{
 	font-family: "OpenSans";
 	color: #2b2b2b;
 }
+input:hover{
+	border-bottom: solid 1px #376bff;
+}
 input::placeholder {
 	color: #9a9898;
 }
+
+input:hover::-webkit-input-placeholder {
+   color: #376bff !important;
+}
+
+/* Mozilla Firefox 4 - 18 */
+input:hover:-moz-placeholder {
+    color: #376bff !important;
+}
+
+/* Mozilla Firefox 19+ */
+input:hover::-moz-placeholder {
+    color: #376bff !important;
+}
+
+/* IE 10+ */
+input:hover:-ms-input-placeholder {
+    color: #376bff !important;
+}
+
 .mat-modal .modal-form .modal-form-btns{
 	margin-top: 15px;
 	display: flex;
@@ -367,4 +391,83 @@ input::placeholder {
 .add-words-translate input{
 	margin-bottom: 10px;
 }
+.login-align{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	background: radial-gradient(circle, rgba(63,199,251,1) 0%, rgba(97,70,252,1) 100%);
+}
+.login-center{
+	width: 600px;
+	background: white;
+	display: flex;
 
+	border: solid 1px #e6e6e6;
+	border-radius: 8px;
+	box-shadow: 0px 8px 14px rgba(0, 0, 0, .1);
+}
+.login-center .modal-form{
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-right: 10px;
+	padding: 20px;
+}
+
+.login-center .login-logo{
+	font-size: 32px;
+  letter-spacing: 0.01px;
+
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.login-center .login-logo .logo-1{
+	font-family: "Molengo"
+}
+.login-center .login-logo .logo-2{
+	font-family: "Lekton"
+}
+.login-text-css{
+	letter-spacing: 0.01px;
+  font-weight: 400;
+  font-size: 14px;
+}
+.login-center input{
+	margin-top: 20px;
+	font-size: 16px;
+}
+.login-center .modal-form-btns{
+	width: 100%;
+}
+.login-center .button-add{
+	margin-top: 10px;
+	width: 100%;
+	background: white;
+}
+.login-text-style{
+	padding-right: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 100%;
+	text-align: center;
+
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.01px;
+}
+.login-text-style span{
+	font-size: 18px;
+}
+.login-center .login-text{
+	width: 50%;
+	padding-left: 10px;
+	border-radius: 0 8px 8px 0;
+	background: #F5F5DC;
+}

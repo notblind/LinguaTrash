@@ -1,7 +1,5 @@
 db.sqlite3
-accounts/migrations/*
 accounts/__pycache__/*
-vocabulary/migrations/*
 vocabulary/__pycache__/*
 loco/__pycache__/*
 
