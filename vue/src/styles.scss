@@ -62,7 +62,7 @@ body{
 }
 .container{
 	width: calc(100% - 70px);
-	max-width: 2000px;
+	max-width: 1800px;
 	margin: 0 auto;
 
 	display: flex;
@@ -91,7 +91,7 @@ body{
 	margin-right: 20px;
 	margin-bottom: 20px;
 	width: calc(100%/3 - 46px/3);
-	height: 300px;
+	height: 280px;
 	background: #fff;
 	border: solid 1px #e6e6e6;
 	border-radius: 8px;
@@ -136,9 +136,9 @@ body{
 	padding-right: 20px;
 }
 .flex-box-buttons .button-add{
-	height: 45px;
+	height: 40px;
 	border-radius: 2px;
-	font-size: 18px;
+	font-size: 16px;
 }
 .list-ul{
 	display: flex;
@@ -156,10 +156,11 @@ body{
 	letter-spacing: 0.01px;
 }
 .mat-title{
+	margin-top: 20px;
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
 	justify-content: space-between;
-	height: 60px;
+	height: 40px;
   border-bottom: solid 1px #e6e6e6;
 }
 .mat-title .mat-name{
@@ -344,10 +345,10 @@ input:hover:-ms-input-placeholder {
 	width: calc(100% - 180px);
 }
 .float-menu{
-	width: 170px;
+	width: 180px;
 }
 .menu{
-	width: 148px;
+	width: 158px;
 	position: fixed;
 
 	margin-top: 42px;
@@ -357,14 +358,13 @@ input:hover:-ms-input-placeholder {
 	padding-bottom: 20px;
 }
 .menu .logo{
-	font-size: 28px;
+	font-size: 30px;
   letter-spacing: 0.01px;
 
   height: 50px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 .menu .logo .logo-1{
 	font-family: "Molengo"
@@ -377,12 +377,15 @@ input:hover:-ms-input-placeholder {
   letter-spacing: 0.01px;
   height: 50px;
 }
+.menu-item-font{
+	display: flex;
+	align-items: center;
+	width: 19px;
+}
 .menu .menu-items .menu-item{
 	cursor: pointer;
 	margin-bottom: 10px;
-}
-.menu .menu-items .menu-item span{
-	margin-left: 10px;
+	display: flex;
 }
 .menu-line{
 	border-bottom: solid 1px #e6e6e6;
@@ -405,8 +408,11 @@ input:hover:-ms-input-placeholder {
 	display: flex;
 
 	border: solid 1px #e6e6e6;
-	border-radius: 8px;
+	border-radius: 2px;
 	box-shadow: 0px 8px 14px rgba(0, 0, 0, .1);
+}
+.reg-log{
+	width: 315px;
 }
 .login-center .modal-form{
 	width: 50%;
@@ -446,8 +452,8 @@ input:hover:-ms-input-placeholder {
 }
 .login-center .button-add{
 	margin-top: 10px;
-	width: 100%;
 	background: white;
+	border-radius: 2px;
 }
 .login-text-style{
 	padding-right: 10px;
@@ -468,6 +474,60 @@ input:hover:-ms-input-placeholder {
 .login-center .login-text{
 	width: 50%;
 	padding-left: 10px;
-	border-radius: 0 8px 8px 0;
+	border-radius: 0 2px 2px 0;
 	background: #F5F5DC;
+}
+.login-text-error{
+	margin-top: 5px;
+	min-height: 28px;
+	text-align: center;
+	font-weight: 600;
+	font-size: 10px;
+	letter-spacing: 0.01px;
+}
+.add-vocab-box{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+
+	
+  cursor: pointer;
+
+  font-weight: 600;
+	font-size: 18px;
+	letter-spacing: 0.01px;
+}
+
+.view-mode{
+	width: 30px;
+  cursor: pointer;
+  border-radius: 4px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+}
+.view-mode span{
+	width: 75%;
+	height: 3px;
+	display: block;
+	background: #9a9898;
+	margin-top: 3px;
+	border-radius: 4px;
+}
+.view-mode span:first-child{
+	margin-top: 0;
+}
+.view-mode-box{
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.view-mode-box span{
+	width: 9px;
+	height: 9px;
+	border-radius: 0;
+	margin: 2px !important;
 }

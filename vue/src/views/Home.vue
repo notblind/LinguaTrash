@@ -4,10 +4,16 @@
 			<div class="mat-title">
 				<div class="mat-name">Ваши словари</div>
 				<div>
-					<div class="button-add" v-on:click="visAdd = false" style="margin-bottom: 10px;">Создать новый словарь</div>
+				<!-- 	<div class="button-add" v-on:click="visAdd = false" style="margin-bottom: 10px;">Создать новый словарь</div> -->
+					<div class="view-mode" v-on:click="boxes=!boxes" v-bind:class="{'view-mode-box': !boxes}">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
 				</div>
 			</div>
-<!-- 			<ul class="list-ul">
+			<ul class="list-ul" v-if="!boxes">
 				<li v-for="item in vocabulary" :key="item.id" class="list-item">
 					<div>
 						<div class="list-ul-name">{{item.name}}</div>
@@ -24,10 +30,10 @@
 						</div>
 					</div>
 				</li>
-			</ul> -->
+			</ul>
 		</div>
 
-		<div class="flex-boxes">
+		<div class="flex-boxes" v-if="boxes">
 			<div v-for="item in vocabulary" :key="item.id" class="flex-box">
 				<div class="right-flex-box">
 					<div class="right-flex-box-item" style="margin-right: 20px;"
@@ -35,8 +41,16 @@
 							v-on:click="clickLike(item)">
 							<font-awesome-icon icon="heart" size="lg"/>
 					</div>
-					<router-link class="right-flex-box-item" tag="div"
-					:to="{path: 'words/' + item.id}"><font-awesome-icon icon="align-justify" size="lg"/></router-link>
+			
+
+
+					<router-link class="view-mode right-flex-box-item" tag="div"
+					:to="{path: 'words/' + item.id}">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+					</router-link>
 				</div>
 				<div class="left-flex-box">
 					<div style="color: #9a9898; font-weight: 600; font-size: 14px; letter-spacing: 0.01px;">{{item.create_time}}</div>
@@ -49,10 +63,22 @@
 				</div>
 				<div class="flex-box-buttons">
 					<div class="button-add" style="margin-bottom: 15px;">Начать тренировку</div>
-					<div class="button-add" style="margin-bottom: 15px;">Добавить слово или словосочетание</div>
+					<div class="button-add" style="margin-bottom: 15px;"
+						v-on:click="visAddPhrase = false; idVocabulary=item.id">Добавить слово или словосочетание</div>
 					
 					
 				</div>
+			</div>
+
+			<div class="flex-box add-vocab-box" 
+				v-on:mouseover="hover=false"
+				v-on:mouseleave="hover=true" v-on:click="visAdd = false">
+				<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s" 
+				v-bind:style="{ opacity: !hover ? '0.0' : '0.5'}"></div>
+
+				<font-awesome-icon style="margin-right: 20px;" icon="plus" size="6x"/>
+
+				<div v-if="!vocabulary || vocabulary.length == 0">Создать первый словарь</div>
 			</div>
 		</div>
 
@@ -69,6 +95,8 @@
 				</div>
 			</form>
 		</div>
+
+		<NewWord v-bind:idVocabulary="idVocabulary" v-if="!visAddPhrase" @close="visAddPhrase = true" @getData="getData()" />
 	</div>
 </template>
 
@@ -77,19 +105,25 @@ import Vue from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
-import { faAlignJustify } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import NewWord from '@/components/New-word';
 import RPService from '../services/rps';
 library.add(faHeart)
-library.add(faAlignJustify)
 library.add(faBook)
+library.add(faPlus)
 const rps = new RPService();
 
 export default Vue.extend({
 	name: 'Home',
 	components: {
+		NewWord
 	},
 	data() {
 		return {
+			idVocabulary: Number,
+			visAddPhrase: Boolean,
+			boxes: Boolean,
+			hover: Boolean,
 			visAdd: Boolean,
 			vocabulary: null,
 			vocab: {
@@ -120,6 +154,11 @@ export default Vue.extend({
 				rps.getVocabulary().then(res => {
 					this.vocabulary = res.data.vocabulary;
 				});
+			});
+		},
+		getData(){
+			rps.getVocabulary().then(res => {
+				this.vocabulary = res.data.vocabulary;
 			});
 		}
 	}

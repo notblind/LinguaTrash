@@ -22,8 +22,10 @@ export default({
 		Menu,
 		LogIn,
 	},
-	props: {
-		partner: Boolean,
+	data() {
+		return {
+			partner: Boolean,
+		}
 	},
 	created() {
 		rps.getMeOnly().then((res) => {
