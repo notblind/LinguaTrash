@@ -25,9 +25,9 @@
 				</div>
 				<div class="menu-line">
 				</div>
-				<div class="menu-item">
+				<div class="menu-item"  v-on:click="logOut()">
 					<div tag="div" class="menu-item">
-						<span class="menu-item-font"><font-awesome-icon icon="user-circle" size="lg" :style="{ color: '#3687e3' }"/></span><span style="margin-left: 5px;">Аккаунт</span>
+						<span class="menu-item-font"><font-awesome-icon icon="user-circle" size="lg" :style="{ color: '#3687e3' }"/></span><span style="margin-left: 5px;">Выйти</span>
 					</div>
 					
 				</div>
@@ -66,6 +66,13 @@ export default Vue.extend({
 		rps.getMeOnly().then((res) => {
 			this.partner = res.data.partner;
 		});
+	},
+	methods: {
+		logOut(){
+			rps.logOut().then(() => {
+				window.location.replace("http://localhost:8080");
+			});
+		}
 	}
 });
 </script>

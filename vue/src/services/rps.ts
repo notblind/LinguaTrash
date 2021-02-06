@@ -34,7 +34,7 @@ export default class RPService {
 			console.log(error.response.headers);
 			if (error.response.status == '401'){
 				// TODO: сделать проверку на url  и только тогда редиректить
-				window.location.replace("http://localhost:8080/login");
+				window.location.replace("http://localhost:8080");
 			}
 		} else if (error.request) {
 			// The request was made but no response was received
@@ -57,8 +57,7 @@ export default class RPService {
 	logIn(username: any, password: any){
 		this._data = this._login(username, password).then(res =>{
 			this._jwtToken = res.data.access;
-			document.cookie = "jwt="+ this._jwtToken +"; max-age=3600;";
-			console.info( document.cookie );
+			document.cookie = "jwt="+ this._jwtToken +"; max-age=604800;";
 		});
 		return this._data
 	}
@@ -76,10 +75,9 @@ export default class RPService {
 		return this._data
 	}
 
-	logOut(): Promise<any>{
+	async logOut(): Promise<any>{
 		this._jwtToken = undefined;
-		this._delJWTToken();
-		console.info(this._getJWTToken());
+		await this._delJWTToken();
 		return this._data
 	}
 
@@ -99,6 +97,11 @@ export default class RPService {
 
 	getVocabulary(): Promise<any>{
 		this._data = this.sendRequest('api/vocabulary', 'get_vocabulary', {});
+		return this._data
+	}
+
+	deleteVocabulary(idVocabulary: number): Promise<any>{
+		this._data = this.sendRequest('api/vocabulary', 'delete_vocabulary', {idVocabulary: idVocabulary});
 		return this._data
 	}
 
@@ -124,6 +127,21 @@ export default class RPService {
 
 	createWord(word: any): Promise<any>{
 		this._data = this.sendRequest('api/vocabulary', 'create_word', {word: word});
+		return this._data
+	}
+
+	modeFirst(idVocabulary: number): Promise<any>{
+		this._data = this.sendRequest('api/vocabulary/training', 'mode_first', {idVocabulary: idVocabulary});
+		return this._data
+	}
+
+	modeSecond(idVocabulary: number): Promise<any>{
+		this._data = this.sendRequest('api/vocabulary/training', 'mode_second', {idVocabulary: idVocabulary});
+		return this._data
+	}
+
+	modeTrird(idVocabulary: number): Promise<any>{
+		this._data = this.sendRequest('api/vocabulary/training', 'mode_third', {idVocabulary: idVocabulary});
 		return this._data
 	}
 

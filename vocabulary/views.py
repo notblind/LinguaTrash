@@ -6,10 +6,12 @@ from rest_framework.permissions import IsAuthenticated
 from accounts.models import Partner
 from accounts.serializers import PartnerSerializer
 from .models import Vocabulary, Words
-from .serializers import VocabularySerializer, WordSerializer, TranslationSerializer
+from .serializers import VocabularySerializer, WordSerializer, TranslationSerializer, \
+	WordSerializerForSecondMode, WordSerializerForThirdMode
 
 from datetime import datetime
 import logging
+import random
 
 # Create your views here.
 
@@ -95,15 +97,15 @@ class VocabularyApi(APIView):
 											 "status": "success"})
 
 	def	delete_vocabulary(self, request):
-		data = request.data.get('data').get('vocabulary')
+		id = request.data.get('data').get('idVocabulary')
 
 		try:
-			vocabulary = Vocabulary.objects.get(pk=data['id'])
+			vocabulary = Vocabulary.objects.get(pk=id)
 		except Vocabulary.DoesNotExist:
-			return HttpResponse(status=404)
+			return Response("404")
 
 		vocabulary.delete()
-		return HttpResponse(status=204)
+		return Response("success")
 
 	def	create_word(self, request):
 		data = request.data.get('data').get('word')
@@ -133,3 +135,40 @@ class VocabularyApi(APIView):
 		vocabulary = Vocabulary.objects.get(id=idVocabulary)
 		serializer = VocabularySerializer(vocabulary)
 		return Response({"vocabulary": serializer.data})
+
+class TrainingApi(APIView):
+	permission_classes=[IsAuthenticated]
+
+	def post(self, request):
+		method = request.data.get('method')
+
+		if method == 'mode_first':
+			return self.mode_first(request)
+		elif method == 'mode_second':
+			return self.mode_second(request)
+		elif method == 'mode_third':
+			return self.mode_third(request)
+
+		return Response({"Not allow method"})
+
+	def mode_first(self, request):
+		idVocabulary = request.data.get('data').get('idVocabulary')
+		words = sorted(Words.objects.filter(vocabulary=idVocabulary), key=lambda x: random.random())
+		
+		logging.error(words)
+		serializer = WordSerializer(words, many=True)
+		return Response({"training": serializer.data})
+
+	def mode_second(self, request):
+		idVocabulary = request.data.get('data').get('idVocabulary')
+		words = sorted(Words.objects.filter(vocabulary=idVocabulary), key=lambda x: random.random())
+		
+		logging.error(words)
+		serializer = WordSerializerForSecondMode(words, many=True)
+		return Response({"training": serializer.data})
+
+	def mode_third(self, request):
+		idVocabulary = request.data.get('data').get('idVocabulary')
+		words = sorted(Words.objects.filter(vocabulary=idVocabulary), key=lambda x: random.random())
+		serializer = WordSerializerForThirdMode(words, many=True)
+		return Response({"training": serializer.data})

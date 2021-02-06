@@ -16,14 +16,15 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Words.vue')
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import('../views/login/Login.vue')
-  },
-  {
     path: '/home',
     name: 'Account',
     component: () => import('../views/Account.vue')
+  },
+  {
+    path: '/training/:idVocabulary',
+    name: 'Training',
+    component: () => import('../views/Training.vue'),
+    props: true
   }
 ]
 

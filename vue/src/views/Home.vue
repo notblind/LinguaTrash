@@ -2,7 +2,7 @@
 	<div class="home" style="margin-bottom:40px; margin-top: 10px;">
 		<div class="mat-div">
 			<div class="mat-title">
-				<div class="mat-name">Ваши словари</div>
+				<div class="mat-name">Мои словари</div>
 				<div>
 				<!-- 	<div class="button-add" v-on:click="visAdd = false" style="margin-bottom: 10px;">Создать новый словарь</div> -->
 					<div class="view-mode" v-on:click="boxes=!boxes" v-bind:class="{'view-mode-box': !boxes}">
@@ -62,7 +62,7 @@
 					</div>
 				</div>
 				<div class="flex-box-buttons">
-					<div class="button-add" style="margin-bottom: 15px;">Начать тренировку</div>
+					<div class="button-add" style="margin-bottom: 15px;" v-on:click="vTrainingModal=item">Начать тренировку</div>
 					<div class="button-add" style="margin-bottom: 15px;"
 						v-on:click="visAddPhrase = false; idVocabulary=item.id">Добавить слово или словосочетание</div>
 					
@@ -97,6 +97,8 @@
 		</div>
 
 		<NewWord v-bind:idVocabulary="idVocabulary" v-if="!visAddPhrase" @close="visAddPhrase = true" @getData="getData()" />
+
+		<TrainingModal v-bind:vocabulary="vTrainingModal" v-if="vTrainingModal" @close="vTrainingModal = undefined" />
 	</div>
 </template>
 
@@ -107,6 +109,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import NewWord from '@/components/New-word';
+import TrainingModal from '@/components/TrainingModal';
 import RPService from '../services/rps';
 library.add(faHeart)
 library.add(faBook)
@@ -116,12 +119,14 @@ const rps = new RPService();
 export default Vue.extend({
 	name: 'Home',
 	components: {
-		NewWord
+		NewWord,
+		TrainingModal
 	},
 	data() {
 		return {
 			idVocabulary: Number,
 			visAddPhrase: Boolean,
+			vTrainingModal: undefined,
 			boxes: Boolean,
 			hover: Boolean,
 			visAdd: Boolean,
