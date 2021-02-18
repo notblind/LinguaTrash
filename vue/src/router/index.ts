@@ -25,6 +25,16 @@ const routes: Array<RouteConfig> = [
     name: 'Training',
     component: () => import('../views/Training.vue'),
     props: true
+  },
+  {
+    path: '/feedback',
+    name: 'Feedback',
+    component: () => import('../views/Feedback.vue'),
+  },
+  {
+    path: '/info',
+    name: 'Info',
+    component: () => import('../views/Info.vue'),
   }
 ]
 

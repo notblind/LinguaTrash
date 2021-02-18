@@ -32,3 +32,8 @@ class Translation(models.Model):
 
 	def __str__(self):
 		return self.translate
+
+class FeedBack(models.Model):
+	text = models.TextField()
+	partner = models.ForeignKey('accounts.Partner', related_name='partner_u', on_delete=models.CASCADE)
+	create_time = models.DateField(auto_now_add=True)

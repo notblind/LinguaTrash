@@ -95,8 +95,8 @@ export default class RPService {
 		return this._data
 	}
 
-	getVocabulary(): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary', 'get_vocabulary', {});
+	getVocabulary(isFull?: boolean): Promise<any>{
+		this._data = this.sendRequest('api/vocabulary', 'get_vocabulary', {isFull: isFull});
 		return this._data
 	}
 
@@ -142,6 +142,11 @@ export default class RPService {
 
 	modeTrird(idVocabulary: number): Promise<any>{
 		this._data = this.sendRequest('api/vocabulary/training', 'mode_third', {idVocabulary: idVocabulary});
+		return this._data
+	}
+
+	createFeedback(text: any): Promise<any>{
+		this._data = this.sendRequest('api/vocabulary/extra', 'create_feedback', {text: text});
 		return this._data
 	}
 

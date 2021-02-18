@@ -4,11 +4,23 @@
 			<div class="mat-title">
 				<div class="mat-name">{{vocabulary.name}}</div>
 				<div style="display: flex;">
-					<div class="button-add" v-on:click="visDeleteVocab = false" style="margin-right: 10px;">Удалить словарь</div>
-					<div class="button-add" v-on:click="visAddPhrase = false">Добавить cлово или словосочетание</div>
+					<div class="button-add button-add-mobile" v-on:click="visDeleteVocab = false">
+						<font-awesome-icon icon="trash" />
+					</div>
 				</div>
 			</div>
 			<ul class="list-ul">
+				<div class="list-item add-vocab-box" 
+					v-on:mouseover="hover2=false" style="height: 70px; min-height: 70px;     border-bottom: solid 1px #e6e6e6;" 
+					v-on:mouseleave="hover2=true" v-on:click="visAddPhrase = false">
+					<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s" 
+					v-bind:style="{ opacity: !hover2 ? '0.0' : '0.5'}"></div>
+
+					<font-awesome-icon style="margin-right: 15px;" icon="plus" size="2x"/>
+
+					<div v-if="!words || words.length == 0">Добавить первое cлово или словосочетание</div>
+				</div>
+
 				<li v-for="item in words" :key="item.id" class="list-item">
 					<div>
 						<div class="list-ul-name">{{item.word}}</div>
@@ -46,9 +58,11 @@ import RPService from '../services/rps';
 import NewWord from '@/components/New-word';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import router from  '../router/index.ts'
 const rps = new RPService();
 library.add(faPlus)
+library.add(faTrash)
 
 export default Vue.extend({
 	name: 'Home',
@@ -62,6 +76,7 @@ export default Vue.extend({
   },
 	data() {
 		return {
+			hover2: Boolean,
 			visAddWord: Boolean,
 			visAddPhrase: Boolean,
 			visDeleteVocab: Boolean,

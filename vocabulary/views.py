@@ -7,7 +7,8 @@ from accounts.models import Partner
 from accounts.serializers import PartnerSerializer
 from .models import Vocabulary, Words
 from .serializers import VocabularySerializer, WordSerializer, TranslationSerializer, \
-	WordSerializerForSecondMode, WordSerializerForThirdMode
+	WordSerializerForSecondMode, WordSerializerForThirdMode, FeedBackSerializer, \
+	FullVocabularySerializer
 
 from datetime import datetime
 import logging
@@ -64,7 +65,11 @@ class VocabularyApi(APIView):
 		if user:
 			partner = Partner.objects.get(user=user.id)
 			vocabulary = Vocabulary.objects.filter(partner=partner.id)
-			serializer = VocabularySerializer(vocabulary, many=True)
+
+			if request.data.get('data').get('isFull'):
+				serializer = FullVocabularySerializer(vocabulary, many=True)
+			else:
+				serializer = VocabularySerializer(vocabulary, many=True)
 			return Response({"vocabulary": serializer.data})
 
 	def get_words(self, request):
@@ -172,3 +177,26 @@ class TrainingApi(APIView):
 		words = sorted(Words.objects.filter(vocabulary=idVocabulary), key=lambda x: random.random())
 		serializer = WordSerializerForThirdMode(words, many=True)
 		return Response({"training": serializer.data})
+
+class ExtraApi(APIView):
+	permission_classes=[IsAuthenticated]
+
+	def post(self, request):
+		method = request.data.get('method')
+
+		if method == 'create_feedback':
+			return self.create_feedback(request)
+
+		return Response({"Not allow method"})
+
+	def create_feedback(self, request):
+		data = request.data.get('data')
+		user = request.user
+		if user:
+			partner = Partner.objects.get(user=user.id)
+			data['partner'] = partner.id
+			serializer = FeedBackSerializer(data=data)
+			if serializer.is_valid(raise_exception=True):
+				res = serializer.save()
+				return Response({"success": "Message created successfully",
+											 "status": "success"})

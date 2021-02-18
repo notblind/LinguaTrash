@@ -3,7 +3,7 @@
 		<div class="mat-div">
 			<div class="mat-title">
 				<div class="mat-name">Тренировка</div>
-				<div class="button-add" style="margin-bottom: 10px;">Закончить досрочно
+				<div class="button-add" v-on:click="visClose = false">Закончить досрочно
 				</div>
 			</div>
 		</div>
@@ -38,10 +38,28 @@
 						v-on:click="!ch ? ch = item : nextWord()"
 						v-bind:style="{ 'height': 'calc(100% / ' + String(currentItem.options.length) + ')',
 						'background': ch && item.right ? '#98FB98' : ch==item && !item.right ? '#FFA07A' : '',
-						'width': ch ? '700px' : ''}">
+						'width': ch ? 'calc(100% - 49px)' : ''}">
 						{{index+1}}. {{item.option}}
 					</div>
 				</div>
+			</div>
+		</div>
+
+		<div class="training-progress">
+			<div v-if="!this.modes || this.modes.first" class="progress-bar progress-f">
+				<div class="load-f"
+					v-bind:style="{ 'width': 'calc(100% * ' + String(loadF) + ' / ' +String(length) + ')'}"></div>
+				Карточки со словами
+			</div>
+			<div v-if="!this.modes || this.modes.second" class="progress-bar progress-s">
+				<div class="load-s"
+					v-bind:style="{ 'width': 'calc(100% * ' + String(loadS) + ' / ' +String(length) + ')'}"></div>
+				Перевод слов
+			</div>
+			<div v-if="!this.modes || this.modes.third" class="progress-bar progress-t">
+				<div class="load-t"
+					v-bind:style="{ 'width': 'calc(100% * ' + String(loadT) + ' / ' +String(length) + ')'}"></div>
+				Обратный перевод слов
 			</div>
 		</div>
 
@@ -78,6 +96,10 @@ export default Vue.extend({
   },
   data() {
 		return {
+			loadF: 0,
+			loadS: 0,
+			loadT: 0,
+			length: Number,
 			visClose: Boolean,
 			hover1: Boolean,
 			hover2: Boolean,
@@ -91,6 +113,11 @@ export default Vue.extend({
 	created() {
 		this.hover1 = false;
 		this.hover2 = false;
+		rps.getOneVocabulary(this.idVocabulary).then(res => {
+			if (res.data.vocabulary){
+				this.length = res.data.vocabulary.ammount;
+			}
+		});
 		this.changeMode();
 	},
 	methods: {
@@ -98,11 +125,11 @@ export default Vue.extend({
 			this.visClose = true;
 			this.hover1 = false;
 			this.hover2 = false;
-			this.currentMode = null,
-			this.currentItem = null,
-			this.ch = null,
-			this.currentIndex = undefined,
-			this.training = []
+			this.currentMode = null;
+			this.currentItem = null;
+			this.ch = null;
+			this.currentIndex = undefined;
+			this.training = [];
 			this.changeMode();
 		},
 		changeMode(){
@@ -177,6 +204,13 @@ export default Vue.extend({
 			router.push({ name: 'Home' })
 		},
 		nextWord(){
+			if (this.currentMode=='first'){
+				this.loadF += 1;
+			} else if (this.currentMode=='second'){
+				this.loadS += 1;
+			} else if (this.currentMode=='third'){
+				this.loadT += 1;
+			}
 			this.currentIndex += 1;
 			if (this.currentIndex == this.training.length){
 				this.changeMode();
@@ -186,6 +220,13 @@ export default Vue.extend({
 			this.ch = false;
 		},
 		prevWord(){
+			if (this.currentMode=='first'){
+				this.loadF -= 1;
+			} else if (this.currentMode=='second'){
+				this.loadS -= 1;
+			} else if (this.currentMode=='third'){
+				this.loadT -= 1;
+			}
 			this.ch = false;
 			this.currentIndex -= 1;
 			this.currentItem = this.training[this.currentIndex];

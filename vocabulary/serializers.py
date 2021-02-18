@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.db.models import Q
 
 from accounts.models import Partner
-from .models import Vocabulary, Words, Translation
+from .models import Vocabulary, Words, Translation, FeedBack
 
 import logging
 import random
@@ -17,6 +17,33 @@ class VocabularySerializer(serializers.Serializer):
 
 	def create(self, validated_data):
 		return Vocabulary.objects.create(**validated_data)
+
+	def update(self, vocabulary, validated_data):
+		vocabulary.name = validated_data.get('name', vocabulary.name)
+		vocabulary.like = validated_data.get('like', vocabulary.like)
+		vocabulary.save()
+		return vocabulary
+
+	def _ammount(self, obj):
+		words = Words.objects.filter(vocabulary=obj.id)
+		return len(words)
+
+class FullVocabularySerializer(serializers.Serializer):
+	id = serializers.IntegerField(label='ID', read_only=True)
+	name = serializers.CharField(max_length=2048)
+	create_time = serializers.DateField(required=False)
+	like = serializers.BooleanField(required=False)
+	ammount = serializers.SerializerMethodField('_ammount', read_only=True)
+	partner = serializers.PrimaryKeyRelatedField(queryset=Partner.objects.all())
+	words = serializers.SerializerMethodField('get_words', read_only=True)
+
+	def create(self, validated_data):
+		return Vocabulary.objects.create(**validated_data)
+
+	def get_words(self, obj):
+		words = Words.objects.filter(vocabulary=obj.id)
+		serializer = WordSerializer(words, many=True)
+		return serializer.data
 
 	def update(self, vocabulary, validated_data):
 		vocabulary.name = validated_data.get('name', vocabulary.name)
@@ -97,3 +124,11 @@ class WordSerializerForThirdMode(serializers.Serializer):
 		translations = Translation.objects.filter(word=obj.id)
 		translation = translations[random.randint(0, len(translations)-1)]
 		return translation.translate
+
+class FeedBackSerializer(serializers.Serializer):
+	text = serializers.CharField()
+	create_time = serializers.DateField(required=False)
+	partner = serializers.PrimaryKeyRelatedField(queryset=Partner.objects.all())
+
+	def create(self, validated_data):
+		return FeedBack.objects.create(**validated_data)
