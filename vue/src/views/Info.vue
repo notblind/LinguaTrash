@@ -1,5 +1,5 @@
 <template>
-	<div class="home" style="margin-bottom:40px; margin-top: 10px;">
+	<div class="home" style="margin-bottom:60px; margin-top: 10px;">
 		<div class="mat-div">
 			<div class="mat-title">
 				<div class="mat-name">Инфо</div>
@@ -13,8 +13,7 @@
 					Идейный вдохновитель - одна великолепная девушка <br>
 					ВСЕ права защищены (или нет) <br> <br>
 
-					Тут должен был быть умный текст о платформе, но нам стало лень <br>
-					Имеем, что имеем
+					Тут должен был быть умный текст о платформе, но нам стало лень
 				</div>
 			</div>
 		</div>

@@ -1,12 +1,14 @@
 <template>
-	<div class="home" style="margin-bottom:40px; margin-top: 10px;">
+	<div class="home" style="margin-bottom:60px; margin-top: 10px;">
 		<div class="mat-div">
 			<div class="mat-title">
 				<div class="mat-name">Тренировка</div>
-				<div class="button-add" v-on:click="visClose = false">Закончить досрочно
+				<div class="button-add" v-on:click="visClose = false">Завершить
 				</div>
 			</div>
 		</div>
+
+		<div class="loader" v-if="!currentItem"></div>
 
 		<div class="training-box" v-if="currentItem">
 			<div class="training-box-item" v-on:mouseover="hover2=true" v-on:mouseleave="hover2=false"
@@ -45,7 +47,7 @@
 			</div>
 		</div>
 
-		<div class="training-progress">
+		<div class="training-progress" v-if="currentItem && width>=768">
 			<div v-if="!this.modes || this.modes.first" class="progress-bar progress-f">
 				<div class="load-f"
 					v-bind:style="{ 'width': 'calc(100% * ' + String(loadF) + ' / ' +String(length) + ')'}"></div>
@@ -63,6 +65,24 @@
 			</div>
 		</div>
 
+		<div class="training-progress" v-if="currentItem && width<768">
+			<div v-if="this.currentMode=='first' && (!this.modes || this.modes.first)" class="progress-bar progress-f">
+				<div class="load-f"
+					v-bind:style="{ 'width': 'calc(100% * ' + String(loadF) + ' / ' +String(length-1) + ')'}"></div>
+				Карточки со словами
+			</div>
+			<div v-if="this.currentMode=='second' && (!this.modes || this.modes.second)" class="progress-bar progress-s">
+				<div class="load-s"
+					v-bind:style="{ 'width': 'calc(100% * ' + String(loadS) + ' / ' +String(length-1) + ')'}"></div>
+				Перевод слов
+			</div>
+			<div v-if="this.currentMode=='third' && (!this.modes || this.modes.third)" class="progress-bar progress-t">
+				<div class="load-t"
+					v-bind:style="{ 'width': 'calc(100% * ' + String(loadT) + ' / ' +String(length-1) + ')'}"></div>
+				Обратный перевод слов
+			</div>
+		</div>
+
 		<div class="back-modal" v-if="!visClose"></div>
 		<div class="mat-modal" v-if="!visClose">
 			<div class="modal-title">
@@ -71,7 +91,7 @@
 			<div class="modal-form">
 				<div class="modal-form-btns">
 					<button class="btn-cancel" v-on:click="endTraining()">Завершить</button>
-					<button class="btn-submit" v-on:click="init()" style="margin-left: 10px;">Повторить еще раз</button>
+					<button class="btn-submit" v-on:click="init()" style="margin-left: 10px;">Повторить</button>
 				</div>
 			</div>
 		</div>
@@ -99,6 +119,7 @@ export default Vue.extend({
 			loadF: 0,
 			loadS: 0,
 			loadT: 0,
+			width: 0,
 			length: Number,
 			visClose: Boolean,
 			hover1: Boolean,
@@ -111,6 +132,8 @@ export default Vue.extend({
 		};
 	},
 	created() {
+		this.updateWidth();
+		window.addEventListener('resize', this.updateWidth);
 		this.hover1 = false;
 		this.hover2 = false;
 		rps.getOneVocabulary(this.idVocabulary).then(res => {
@@ -121,6 +144,9 @@ export default Vue.extend({
 		this.changeMode();
 	},
 	methods: {
+		updateWidth() {
+			this.width = window.innerWidth;
+		},
 		init(){
 			this.visClose = true;
 			this.hover1 = false;

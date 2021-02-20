@@ -519,7 +519,7 @@ input:hover:-ms-input-placeholder {
 	width: 50%;
 	padding-left: 10px;
 	border-radius: 0 2px 2px 0;
-	background: #F5F5DC;
+	background: #f5f5f5;
 }
 .login-text-error{
 	margin-top: 5px;
@@ -712,6 +712,7 @@ input:hover:-ms-input-placeholder {
 	box-shadow: 0px 8px 14px rgb(0 0 0 / 10%);
 	border: solid 1px #e6e6e6;
   background: white;
+  overflow: hidden;
 }
 .training-progress .progress-bar{
 	height: 40px;
@@ -769,8 +770,92 @@ input:hover:-ms-input-placeholder {
 	display: none !important;
 }
 
-@media only screen and (min-width: 1200px) and (max-width: 1400px){
+.loader {
+  color: #376bff;
+  font-size: 90px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  margin: 72px auto;
+  position: relative;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+  animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+}
+@-webkit-keyframes load6 {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+@keyframes load6 {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+@-webkit-keyframes round {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes round {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 
+.logo-vocab .logo-ul-name{
+	overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 350px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px){
@@ -802,9 +887,81 @@ input:hover:-ms-input-placeholder {
   .menu-item{
   	justify-content: center;
   }
+  .logo-vocab .logo-ul-name{
+  	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 260px;
+  }
 }
 
-@media only screen and (max-width: 767.9px){
+@media only screen and (max-width: 991.999999px){
+	.container{
+  	width: calc(100% - 20px);
+  }
+  .float-menu{
+  	position: fixed;
+  	bottom: 0;
+  	left: 0;
+  	z-index: 10;
+  	height: 60px;
+  	width: 100%;
+  }
+  .menu{
+  	margin: 0;
+  	display: flex;
+  	background: white;
+  	width: 100%;
+  	box-shadow: 0 -10px 10px -5px rgb(0 0 0 / 10%);
+  	padding: 0;
+  	padding-left: 10px;
+  	height: 60px;
+  	align-items: center;
+  	justify-content: space-between;
+  }
+  .menu .logo{
+  	padding-left: 10px;
+  }
+  .menu-items{
+  	display: flex;
+  }
+  .home{
+  	width: 100%;
+  }
+  .menu-items .menu-item{
+  	flex-direction: column;
+  	margin-bottom: 0 !important;
+  	align-items: center;
+  	justify-content: center;
+  	margin-right: 20px;
+  	width: 63px;
+  }
+  .menu-items .menu-item .menu-name{
+  	margin-left: 0 !important;
+  }
+  .flex-boxes{
+  	width: 250px;
+  }
+  .logo-vocab .logo-ul-name{
+  	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 210px;
+  }
+  .add-vocab-mobile-text{
+  	font-size: 16px;
+  }
+  .big-modal{
+  	top: 50px;
+    width: calc(100% - 40px);
+    left: 0;
+  }
+  .modal-form .modal-title{
+  	padding-left: 0 !important; 
+  }
+}
+
+@media only screen and (max-width: 767px){
 	.hover-mobile{
   	display: none;
   }
@@ -814,7 +971,164 @@ input:hover:-ms-input-placeholder {
 	.login-center .modal-form{
 		width: 100%;
 	}
-	.login-center{
-		width: calc(100% - 40px)
+	.hover-pc{
+		display: flex !important;
 	}
+  .hover-mobile{
+  	display: none !important;
+  }
+  .menu .menu-items{
+  	font-size: 12px;
+  }
+  .menu-items .menu-item{
+  	width: 55px;
+  	margin-right: 0;
+  }
+  .menu-items{
+  	width: 100%;
+  	justify-content: space-evenly;
+  }
+  .menu-items .menu-line{
+  	display: none;
+  }
+  .float-menu{
+  	height: 50px;
+  	z-index: 1000;
+  }
+  .menu{
+  	height: 51px;
+  }
+  .flex-boxes{
+  	width: 100%;
+  	overflow-y: unset;
+  }
+  .flex-boxes-in{
+  	overflow-y: unset;
+  	height: auto;
+  }
+  .mat-title .mat-name{
+  	font-size: 20px;
+  }
+  .mat-title{
+  	height: 20px;
+  }
+  .button-add{
+  	/*font-size: 12px;*/
+  	height: 30px;
+  	padding-left: 10px;
+  	padding-right: 10px;
+  }
+  .mat-div{
+  	margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+  }
+  .flex-box{
+  	height: 190px;
+  }
+  .flex-box .flex-box-name{
+  	padding-left: 10px;
+    padding-right: 10px;
+  }
+  .flex-box .right-flex-box{
+  	right: 10px;
+  }
+  .flex-box .left-flex-box{
+  	left: 10px;
+  }
+  .flex-box .flex-box-buttons{
+  	padding-left: 10px;
+    padding-right: 10px;
+  }
+  .flex-box-buttons .button-add{
+  	font-size: 14px;
+  	height: 35px;
+  }
+  .list-ul li{
+  	height: 50px;
+  }
+  .list-item .list-ul-name{
+  	font-size: 14px;
+  }
+  .list-item .rightpart-list{
+  	font-size: 12px;
+  }
+  .feedback-form{
+  	max-width: 100%;
+    width: 100%;
+  }
+  .feedback-form textarea{
+    width: calc(100% - 22px);
+  }
+  .feedback-form .modal-form-btns{
+  	width: 100%;
+  }
+  .feedback-form .modal-form-btns .button-add{
+  	width: 100%;
+  }
+  .login-center{
+  	width: calc(100% - 20px);
+  }
+  .training-box{
+  	flex-direction: column;
+		width: 100%;
+  }
+  .training-box .training-box-item{
+		width: 100%;
+    height: 30vh;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  .training-box .training-next,
+  .training-box .training-back{
+  	display: none;
+  }
+  .training-progress{
+  	margin-top: 10px;
+  }
+  .training-box .training-box-item .training-solve-ch div{
+  	width: calc(100% - 10px) !important;
+  }
+  .list-ul .add-vocab-box{
+  	font-size: 12px;
+  }
+  .back-modal{
+  	display: none;
+  }
+  .mat-modal{
+  	left: 0;
+  	width: 100%;
+    top: -20px;
+    height: 100%;
+    padding: 0;
+  }
+  .mat-modal .modal-title{
+  	padding-left: 10px;
+  	border-bottom: solid 1px #e6e6e6;
+  }
+  .mat-modal .modal-form{
+  	margin-top: 10px;
+  	margin-left: 10px;
+  	width: calc(100% - 25px)
+  }
+  .mat-modal .modal-form .modal-form-btns{
+  	margin-top: 20px;
+  	flex-wrap: wrap;
+  }
+  .mat-modal .modal-form .modal-form-btns{
+  	justify-content: space-between;
+  }
+  .mat-modal .modal-form .modal-form-btns button{
+  	margin-left: 0 !important;
+  }
+  .mat-modal .modal-form .modal-form-btns button:nth-child(1),
+  .mat-modal .modal-form .modal-form-btns button:nth-child(2){
+  	width: 49%;
+  }
+  .mat-modal .modal-form .modal-form-btns button:nth-child(3){
+  	width: 100%;
+  	margin-top: 10px;
+  }
 }

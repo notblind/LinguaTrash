@@ -16,22 +16,22 @@
 					<font-awesome-icon icon="user-circle" size="lg" :style="{ color: '#3687e3' }"/><span>Моя страница</span>
 				</router-link> -->
 				<router-link tag="div" class="menu-item" :to="{path: '/'}">
-					<span class="menu-item-font"><font-awesome-icon icon="book" size="lg" :style="{ color: '#3687e3' }" /></span><span class="menu-name" style="margin-left: 5px;">Словари</span>
+					<span class="menu-item-font"><font-awesome-icon icon="book" size="lg" :style="{ color: '#3687e3' }" /></span><span class="menu-name" style="margin-left: 10px;">Словари</span>
 				</router-link>
 
 				<div class="menu-line">
 				</div>
 				<router-link tag="div" class="menu-item" :to="{path: '/feedback'}">
-					<span class="menu-item-font"><font-awesome-icon icon="comment" size="lg" :style="{ color: '#3687e3' }"/></span><span class="menu-name" style="margin-left: 5px;">Обратная связь</span>
+					<span class="menu-item-font"><font-awesome-icon icon="comment" size="lg" :style="{ color: '#3687e3' }"/></span><span class="menu-name" style="margin-left: 10px;">Фидбэк</span>
 				</router-link>
 				<router-link tag="div" class="menu-item" :to="{path: '/info'}">
-					<span class="menu-item-font"><font-awesome-icon icon="question-circle" size="lg" :style="{ color: '#3687e3' }"/></span><span class="menu-name" style="margin-left: 5px;">Инфо</span>
+					<span class="menu-item-font"><font-awesome-icon icon="question-circle" size="lg" :style="{ color: '#3687e3' }"/></span><span class="menu-name" style="margin-left: 10px;">Инфо</span>
 				</router-link>
 				<div class="menu-line">
 				</div>
 				<div class="menu-item"  v-on:click="logOut()">
 					<div tag="div" class="menu-item">
-						<span class="menu-item-font"><font-awesome-icon icon="user-circle" size="lg" :style="{ color: '#3687e3' }"/></span><span class="menu-name" style="margin-left: 5px;">Выйти</span>
+						<span class="menu-item-font"><font-awesome-icon icon="user-circle" size="lg" :style="{ color: '#3687e3' }"/></span><span class="menu-name" style="margin-left: 10px;">Выйти</span>
 					</div>
 					
 				</div>

@@ -1,5 +1,5 @@
 <template>
-	<div class="home" style="margin-bottom:40px; margin-top: 10px;">
+	<div class="home" style="margin-bottom:60px; margin-top: 10px;">
 		<div class="mat-div">
 			<div class="mat-title">
 				<div class="mat-name">Мои словари</div>
@@ -10,10 +10,10 @@
 						<span></span>
 						<span></span>
 					</div> -->
-					<div class="button-add" v-on:click="visAdd = false">Добавить словарь</div>
+					<div class="button-add" v-on:click="visAdd = false"><font-awesome-icon icon="plus" style="margin-right: 5px;"/>Cловарь</div>
 				</div>
 			</div>
-			<ul class="list-ul" v-if="!boxes">
+			<!-- <ul class="list-ul" v-if="!boxes">
 				<li v-for="item in vocabulary" :key="item.id" class="list-item">
 					<div>
 						<div class="list-ul-name">{{item.name}}</div>
@@ -30,10 +30,12 @@
 						</div>
 					</div>
 				</li>
-			</ul>
+			</ul> -->
 		</div>
 
-		<div class="row-home">
+		<div class="loader" v-if="!vocabulary || vocabulary.length==0"></div>
+
+		<div class="row-home" v-if="vocabulary && vocabulary.length>0">
 			<div class="flex-boxes" v-if="boxes">
 				<div class="flex-boxes-in scroll">
 					<div v-for="item in vocabulary" :key="item.id" class="flex-box"
@@ -89,7 +91,7 @@
 				</div>
 			</div>
 
-			<div class="mat-div" v-if="vocabularyActive" style="flex: 1; margin: 0; margin-left: 10px; padding-bottom: 5px;">
+			<div class="mat-div" v-if="vocabularyActive && width>=768" style="flex: 1; margin: 0; margin-left: 10px; padding-bottom: 5px;">
 				<div class="mat-title" style="padding-bottom: 20px;">
 					<div class="mat-name" style="margin-bottom: 0;">{{vocabularyActive.name}}</div>
 					<div style="display: flex;">
@@ -111,7 +113,7 @@
 
 						<font-awesome-icon style="margin-right: 15px;" icon="plus" size="2x"/>
 
-						<div v-if="!vocabularyActive.words || vocabularyActive.words.length == 0">Добавить первое cлово или словосочетание</div>
+						<div v-if="!vocabularyActive.words || vocabularyActive.words.length == 0" class="add-vocab-mobile-text">Добавить первое cлово или словосочетание</div>
 					</div>
 
 					<li v-for="item in vocabularyActive.words" :key="item.id" class="list-item">
@@ -128,7 +130,7 @@
 			</div>
 		</div>
 
-		<div class="mat-div">
+		<div class="mat-div" v-if="vocabulary && vocabulary.length>0 && width>=768">
 			<div class="mat-title">
 				<div class="mat-name">Список словарей</div>
 				<div>
@@ -185,11 +187,24 @@
 		<div class="back-modal" v-if="!visError"></div>
 		<div class="mat-modal" v-if="!visError">
 			<div class="modal-title">
-				Сначала добавьте слова с словарь
+				Сначала добавьте слова в словарь
 			</div>
 			<div class="modal-form">
 				<div class="modal-form-btns">
 					<button class="btn-submit" v-on:click="visError=true">Хорошо</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="back-modal" v-if="!visDeleteVocab"></div>
+		<div class="mat-modal" v-if="!visDeleteVocab">
+			<div class="modal-title">
+				Удалить словарь?
+			</div>
+			<div class="modal-form">
+				<div class="modal-form-btns">
+					<button class="btn-cancel" v-on:click="visDeleteVocab = true">Назад</button>
+					<button class="btn-submit" v-on:click="deleteVocab()" style="margin-left: 10px;">Удалить</button>
 				</div>
 			</div>
 		</div>
@@ -234,14 +249,18 @@ export default Vue.extend({
 			hover: Boolean,
 			hover2: Boolean,
 			visAdd: Boolean,
+			visDeleteVocab: Boolean,
 			vocabulary: null,
 			vocabularyActive: null,
+			width: 0,
 			vocab: {
 				'name': null
 			}
 		};
 	},
 	created() {
+		this.updateWidth();
+		window.addEventListener('resize', this.updateWidth);
 		rps.getVocabulary(true).then(res => {
 			this.vocabulary = res.data.vocabulary;
 			if (this.vocabulary && this.vocabulary.length > 0){
@@ -260,6 +279,9 @@ export default Vue.extend({
 					});
 				});
 			}
+		},
+		updateWidth() {
+			this.width = window.innerWidth;
 		},
 		clickLike(item){
 			item.like = !item.like;
@@ -280,6 +302,17 @@ export default Vue.extend({
 			} else {
 				this.visError = false;
 			}
+		},
+		deleteVocab(){
+			rps.deleteVocabulary(this.vocabularyActive.id).then(res => {
+				rps.getVocabulary().then(res => {
+					this.vocabulary = res.data.vocabulary;
+					this.visDeleteVocab = true;
+					if (this.vocabulary && this.vocabulary.length > 0){
+						this.vocabularyActive = this.vocabulary[0];
+					}
+				});
+			});
 		}
 	}
 });

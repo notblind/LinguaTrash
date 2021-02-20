@@ -1,5 +1,5 @@
 <template>
-	<div class="home" style="margin-bottom:40px; margin-top: 10px;">
+	<div class="home" style="margin-bottom:60px; margin-top: 10px;">
 		<div class="mat-div">
 			<div class="mat-title">
 				<div class="mat-name">Обратная связь</div>

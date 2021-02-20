@@ -13,7 +13,7 @@
 				</div>
 				<div class="modal-form-btns">
 					<button class="button-add" type="submit" style="width: 100%; margin-top: 0; height: 40px;">Войти</button>
-					<div class="button-add" v-on:click="back()"><span style="font-weight: 400; margin-right: 3px;">Нет аккаунта?</span> Создате его</div>
+					<div class="button-add" v-on:click="back()" style="height: 38px"><span style="font-weight: 400; margin-right: 3px;">Нет аккаунта?</span> Создайте его</div>
 				</div>
 			</form>
 
@@ -32,14 +32,14 @@
 				</div>
 				<div class="modal-form-btns">
 					<button class="button-add" type="submit" style="width: 100%; margin-top: 0; height: 40px;">Создать аккаунт и войти</button>
-					<div class="button-add" v-on:click="back()">Назад</div>
+					<div class="button-add" v-on:click="back()" style="height: 38px">Назад</div>
 				</div>
 			</form>
 
 			<div class="login-text" v-if="registration">
 				<div class="login-text-style">
-					<span>Добрый вечер!</span> <br>
-					Вы случайно наткнулись на платформу для запоминания иностранных слов. <br><br>
+					<span>Добро пожаловать!</span> <br>
+					Вы случайно наткнулись на платформу для запоминания иностранных слов <br><br>
 					Для доступа к платформе нужно только "Войти"
 				</div>
 			</div>

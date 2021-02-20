@@ -1,6 +1,9 @@
 <template>
-	<div class="home" v-if="vocabulary && words" style="margin-bottom:40px; margin-top: 10px;">
-		<div class="mat-div">
+	<div class="home" style="margin-bottom:60px; margin-top: 10px;">
+
+		<div class="loader" v-if="!vocabulary || !words"></div>
+
+		<div class="mat-div" v-if="vocabulary && words">
 			<div class="mat-title">
 				<div class="mat-name">{{vocabulary.name}}</div>
 				<div style="display: flex;">
