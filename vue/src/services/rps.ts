@@ -26,7 +26,7 @@ export default class RPService {
 			}
 		}
 		console.info(this._getJWTToken());
-		return axios.post('http://localhost:8000/' + url, {method: method, data: data}, config).catch(function (error) {
+		return axios.post('http://linguatrash.fun/' + url, {method: method, data: data}, config).catch(function (error) {
 		if (error.response) {
 			// Request made and server responded
 			console.log(error.response.data);
@@ -34,7 +34,7 @@ export default class RPService {
 			console.log(error.response.headers);
 			if (error.response.status == '401'){
 				// TODO: сделать проверку на url  и только тогда редиректить
-				window.location.replace("http://localhost:8080");
+				window.location.reload(true); ;
 			}
 		} else if (error.request) {
 			// The request was made but no response was received
@@ -51,7 +51,7 @@ export default class RPService {
 		const bodyFormData = new FormData();
 		bodyFormData.append('username', username);
 		bodyFormData.append('password', password);
-		return axios.post('http://localhost:8000/auth/jwt/create', bodyFormData)
+		return axios.post('http://linguatrash.fun/auth/jwt/create', bodyFormData)
 	}
 
 	logIn(username: any, password: any){
@@ -67,7 +67,7 @@ export default class RPService {
 		bodyFormData.append('username', username);
 		bodyFormData.append('password', password);
 		bodyFormData.append('email', username);
-		return axios.post('http://localhost:8000/auth/users/', bodyFormData)
+		return axios.post('http://linguatrash.fun/auth/users/', bodyFormData)
 	}
 
 	signUp(username: any, password: any){
@@ -87,7 +87,7 @@ export default class RPService {
 				'Authorization': 'Bearer ' + this._getJWTToken(),
 			}
 		}
-		return axios.post('http://localhost:8000/api/vocabulary/partner', {method: 'get_me', data: {}}, config)
+		return axios.post('http://linguatrash.fun/api/vocabulary/partner', {method: 'get_me', data: {}}, config)
 	}
 
 	getMe(): Promise<any>{

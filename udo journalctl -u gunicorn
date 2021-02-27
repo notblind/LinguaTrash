@@ -1,0 +1,21 @@
+[0;1;32m●[0m gunicorn.service - gunicorn daemon
+   Loaded: loaded (/etc/systemd/system/gunicorn.service; disabled; vendor preset: enabled)
+   Active: [0;1;32mactive (running)[0m since Wed 2021-02-24 22:49:51 UTC; 2min 31s ago
+ Main PID: 18184 (gunicorn)
+   CGroup: /system.slice/gunicorn.service
+           ├─18184 /root/loco/env/bin/python3.9 /root/loco/env/bin/gunicorn --access-logfile - --workers 5 --bind unix:/run/gunicorn.sock loco.wsgi:application
+           ├─18185 /root/loco/env/bin/python3.9 /root/loco/env/bin/gunicorn --access-logfile - --workers 5 --bind unix:/run/gunicorn.sock loco.wsgi:application
+           ├─18186 /root/loco/env/bin/python3.9 /root/loco/env/bin/gunicorn --access-logfile - --workers 5 --bind unix:/run/gunicorn.sock loco.wsgi:application
+           ├─18187 /root/loco/env/bin/python3.9 /root/loco/env/bin/gunicorn --access-logfile - --workers 5 --bind unix:/run/gunicorn.sock loco.wsgi:application
+           ├─18188 /root/loco/env/bin/python3.9 /root/loco/env/bin/gunicorn --access-logfile - --workers 5 --bind unix:/run/gunicorn.sock loco.wsgi:application
+           └─18189 /root/loco/env/bin/python3.9 /root/loco/env/bin/gunicorn --access-logfile - --workers 5 --bind unix:/run/gunicorn.sock loco.wsgi:application
+
+Feb 24 22:49:51 younior systemd[1]: Started gunicorn daemon.
+Feb 24 22:49:52 younior gunicorn[18184]: [2021-02-24 22:49:52 +0000] [18184] [INFO] Starting gunicorn 20.0.4
+Feb 24 22:49:52 younior gunicorn[18184]: [2021-02-24 22:49:52 +0000] [18184] [INFO] Listening at: unix:/run/gunicorn.sock (18184)
+Feb 24 22:49:52 younior gunicorn[18184]: [2021-02-24 22:49:52 +0000] [18184] [INFO] Using worker: sync
+Feb 24 22:49:52 younior gunicorn[18184]: [2021-02-24 22:49:52 +0000] [18185] [INFO] Booting worker with pid: 18185
+Feb 24 22:49:52 younior gunicorn[18184]: [2021-02-24 22:49:52 +0000] [18186] [INFO] Booting worker with pid: 18186
+Feb 24 22:49:52 younior gunicorn[18184]: [2021-02-24 22:49:52 +0000] [18187] [INFO] Booting worker with pid: 18187
+Feb 24 22:49:52 younior gunicorn[18184]: [2021-02-24 22:49:52 +0000] [18188] [INFO] Booting worker with pid: 18188
+Feb 24 22:49:52 younior gunicorn[18184]: [2021-02-24 22:49:52 +0000] [18189] [INFO] Booting worker with pid: 18189
