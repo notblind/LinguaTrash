@@ -94,7 +94,7 @@ body{
 	display: flex;
 	overflow-y: auto;
 	flex-direction: column;
-	height: 550px;
+	max-height: 550px;
 	border-radius: 8px
 }
 /*.flex-box:nth-child(3n+3){
@@ -103,7 +103,6 @@ body{
 .flex-box{
 	height: 200px;
 	background: #fff;
-	border-bottom: solid 1px #e6e6e6;
 	position: relative;
 	width: 100%;
 
@@ -202,6 +201,13 @@ body{
   font-weight: 600;
 	font-size: 14px;
 	letter-spacing: 0.01px;
+
+	-webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .button-add:hover {
@@ -361,6 +367,13 @@ input:hover:-ms-input-placeholder {
   font-weight: 600;
 	font-size: 14px;
 	letter-spacing: 0.01px;
+
+	-webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .btn-submit{
 	height: 38px;
@@ -379,6 +392,13 @@ input:hover:-ms-input-placeholder {
   font-weight: 600;
 	font-size: 14px;
 	letter-spacing: 0.01px;
+
+	-webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .home{
 	width: calc(100% - 180px);
@@ -394,6 +414,12 @@ input:hover:-ms-input-placeholder {
 .menu{
 	width: 158px;
 	position: fixed;
+	-webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
 	margin-top: 61px;
 	margin-bottom: 20px;
@@ -692,10 +718,11 @@ input:hover:-ms-input-placeholder {
 .feedback{
 	margin-top: 20px;
 	margin-bottom: 20px;
+	max-width: 600px;
 }
 .feedback form{
 	padding-top: 10px;
-	max-width: 600px;
+	/*max-width: 600px;*/
 }
 .feedback button{
 	margin-left: 0;
@@ -893,6 +920,9 @@ input:hover:-ms-input-placeholder {
     text-overflow: ellipsis;
     max-width: 260px;
   }
+  .add-vocab-box .add-vocab-box-mobile{
+  	width: 35px !important;
+  }
 }
 
 @media only screen and (max-width: 991.999999px){
@@ -900,6 +930,8 @@ input:hover:-ms-input-placeholder {
   	width: calc(100% - 20px);
   }
   .float-menu{
+  	-webkit-transform: translateZ(0);
+  	transform: translateZ(0);
   	position: fixed;
   	bottom: 0;
   	left: 0;
@@ -959,6 +991,12 @@ input:hover:-ms-input-placeholder {
   .modal-form .modal-title{
   	padding-left: 0 !important; 
   }
+  .add-vocab-box .add-vocab-box-mobile{
+  	width: 30px !important;
+  }
+  .add-vocab-box{
+  	font-size: 14px;
+  }
 }
 
 @media only screen and (max-width: 767px){
@@ -1005,6 +1043,7 @@ input:hover:-ms-input-placeholder {
   .flex-boxes-in{
   	overflow-y: unset;
   	height: auto;
+  	max-height: inherit;
   }
   .mat-title .mat-name{
   	font-size: 20px;
@@ -1091,7 +1130,7 @@ input:hover:-ms-input-placeholder {
   .training-box .training-box-item .training-solve-ch div{
   	width: calc(100% - 10px) !important;
   }
-  .list-ul .add-vocab-box{
+  .add-vocab-box{
   	font-size: 12px;
   }
   .back-modal{

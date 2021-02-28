@@ -16,4 +16,5 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 sys.path.append('/root/loco/LinguaTrash/loco')
 sys.path.append('/root/loco/LinguaTrash')
 
+
 application = get_wsgi_application()

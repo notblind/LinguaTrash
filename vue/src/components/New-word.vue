@@ -51,7 +51,6 @@ export default Vue.extend({
 	},
 	methods: {
 		addPhrase(cancel) {
-			console.info(this.idVocabulary);
 			if (this.newWord.word.trim()){
 				rps.createWord(this.newWord).then(() => {
 					this.$emit('getData');

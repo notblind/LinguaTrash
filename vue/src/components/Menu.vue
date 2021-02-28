@@ -74,7 +74,7 @@ export default Vue.extend({
 	methods: {
 		logOut(){
 			rps.logOut().then(() => {
-				window.location.replace("http://localhost:8080");
+				window.location.reload(true);
 			});
 		}
 	}
