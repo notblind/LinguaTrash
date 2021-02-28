@@ -8,10 +8,13 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'loco.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+sys.path.append('/root/loco/LinguaTrash/loco')
+sys.path.append('/root/loco/LinguaTrash')
 
 
 application = get_wsgi_application()

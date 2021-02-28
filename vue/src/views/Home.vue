@@ -262,6 +262,7 @@ export default Vue.extend({
 		this.updateWidth();
 		window.addEventListener('resize', this.updateWidth);
 		rps.getVocabulary(true).then(res => {
+                        console.info(res);
 			this.vocabulary = res.data.vocabulary;
 			if (this.vocabulary && this.vocabulary.length > 0){
 				this.vocabularyActive = this.vocabulary[0];
