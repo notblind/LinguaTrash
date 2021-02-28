@@ -30,7 +30,6 @@ export default({
 	created() {
 		this.partner = undefined;
 		rps.getMeOnly().then((res) => {
-			console.info(res);
 			this.partner = res.data.partner;
 		});
 	}

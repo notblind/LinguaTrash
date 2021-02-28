@@ -82,7 +82,7 @@ export default Vue.extend({
 		},
 		login(){
 			rps.logIn(this.user.username, this.user.password).then(res => {
-                        window.location.reload(true);
+				window.location.reload(true);
 			}).catch( error => {
 				if (error.response) {
 					if (error.response.data && error.response.data.detail){
@@ -101,7 +101,7 @@ export default Vue.extend({
 					this.errorEmail = [];
 					this.errorPassword = [];
 					rps.logIn(this.user.username, this.user.password).then(res => {
-                                        window.location.reload(true);
+						window.location.reload(true);
 					});
 				}).catch( error => {
 					if (error.response) {

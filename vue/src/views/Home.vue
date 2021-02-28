@@ -33,9 +33,9 @@
 			</ul> -->
 		</div>
 
-		<div class="loader" v-if="!vocabulary || vocabulary.length==0"></div>
+		<div class="loader" v-if="!vocabulary"></div>
 
-		<div class="row-home" v-if="vocabulary && vocabulary.length>0">
+		<div class="row-home" v-if="vocabulary">
 			<div class="flex-boxes" v-if="boxes">
 				<div class="flex-boxes-in scroll">
 					<div v-for="item in vocabulary" :key="item.id" class="flex-box"
@@ -84,7 +84,8 @@
 						<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s" 
 						v-bind:style="{ opacity: !hover ? '0.0' : '0.5'}"></div>
 
-						<font-awesome-icon style="margin-right: 20px;" icon="plus" size="6x"/>
+						<font-awesome-icon style="margin-right: 20px; width: 50px;" icon="plus" size="6x"
+							class="add-vocab-box-mobile" />
 
 						<div v-if="!vocabulary || vocabulary.length == 0">Создать первый словарь</div>
 					</div>
@@ -107,7 +108,7 @@
 
 					<div class="list-item add-vocab-box" 
 						v-on:mouseover="hover2=false" style="height: 70px; min-height: 70px;     border-bottom: solid 1px #e6e6e6;" 
-						v-on:mouseleave="hover2=true" v-on:click="visAddPhrase = false">
+						v-on:mouseleave="hover2=true" v-on:click="visAddPhrase = false; idVocabulary=vocabularyActive.id">
 						<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s" 
 						v-bind:style="{ opacity: !hover2 ? '0.0' : '0.5'}"></div>
 
@@ -132,7 +133,7 @@
 
 		<div class="mat-div" v-if="vocabulary && vocabulary.length>0 && width>=768">
 			<div class="mat-title">
-				<div class="mat-name">Список словарей</div>
+				<div class="mat-name">Весь список словарей</div>
 				<div>
 				</div>
 			</div>
@@ -262,7 +263,6 @@ export default Vue.extend({
 		this.updateWidth();
 		window.addEventListener('resize', this.updateWidth);
 		rps.getVocabulary(true).then(res => {
-                        console.info(res);
 			this.vocabulary = res.data.vocabulary;
 			if (this.vocabulary && this.vocabulary.length > 0){
 				this.vocabularyActive = this.vocabulary[0];
@@ -273,10 +273,20 @@ export default Vue.extend({
 		addVocabulary() {
 			if (this.vocab.name.trim()){
 				rps.createVocabulary(this.vocab).then(() => {
-					rps.getVocabulary().then(res => {
+					rps.getVocabulary(true).then(res => {
 						this.vocabulary = res.data.vocabulary;
 						this.visAdd = true;
 						this.vocab.name = null;
+						if (this.vocabulary && this.vocabulary.length > 0){
+							if (!this.vocabularyActive){
+								this.vocabularyActive = this.vocabulary[0];
+							} else {
+								const v = this.vocabulary.filter(x => x.id == this.vocabularyActive.id);
+								if (v && v.length > 0){
+									this.vocabularyActive = v[0];
+								}
+							}
+						}
 					});
 				});
 			}
@@ -287,14 +297,22 @@ export default Vue.extend({
 		clickLike(item){
 			item.like = !item.like;
 			rps.editVocabulary(item).then(() => {
-				rps.getVocabulary().then(res => {
+				rps.getVocabulary(true).then(res => {
 					this.vocabulary = res.data.vocabulary;
+					const v = this.vocabulary.filter(x => x.id == this.vocabularyActive.id);
+					if (v && v.length > 0){
+						this.vocabularyActive = v[0];
+					}
 				});
 			});
 		},
 		getData(){
-			rps.getVocabulary().then(res => {
+			rps.getVocabulary(true).then(res => {
 				this.vocabulary = res.data.vocabulary;
+					const v = this.vocabulary.filter(x => x.id == this.vocabularyActive.id);
+					if (v && v.length > 0){
+						this.vocabularyActive = v[0];
+					}
 			});
 		},
 		train(item){
@@ -306,11 +324,13 @@ export default Vue.extend({
 		},
 		deleteVocab(){
 			rps.deleteVocabulary(this.vocabularyActive.id).then(res => {
-				rps.getVocabulary().then(res => {
+				rps.getVocabulary(true).then(res => {
 					this.vocabulary = res.data.vocabulary;
 					this.visDeleteVocab = true;
 					if (this.vocabulary && this.vocabulary.length > 0){
 						this.vocabularyActive = this.vocabulary[0];
+					} else {
+						this.vocabularyActive = undefined;
 					}
 				});
 			});
