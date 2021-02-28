@@ -100,7 +100,8 @@ export default class RPService {
 				'Authorization': 'Bearer ' + this._getJWTToken(),
 			}
 		}
-		return axios.post(this.mainUrl + 'api/vocabulary/partner', {method: 'get_me', data: {}}, config)	}
+		return axios.post(this.mainUrl + 'api/vocabulary/partner', {method: 'get_me', data: {}}, config)	
+	}
 
 	getMe(): Promise<any>{
 		this._data = this.sendRequest('api/vocabulary/partner', 'get_me', {});
