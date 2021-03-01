@@ -104,7 +104,7 @@
 						</div>
 					</div>
 				</div>
-				<ul class="list-ul">
+				<ul class="list-ul list-item-over scroll" v-bind:style="{ 'max-height': vocabulary.length==1 ? '340px' : '450px'}">
 
 					<div class="list-item add-vocab-box" 
 						v-on:mouseover="hover2=false" style="height: 70px; min-height: 70px;     border-bottom: solid 1px #e6e6e6;" 

@@ -461,6 +461,9 @@ input:hover:-ms-input-placeholder {
 	border-bottom: solid 1px #e6e6e6;
 	margin-bottom: 10px;
 }
+.list-item-over{
+  overflow-y: auto;
+}
 .add-words-translate input{
 	margin-bottom: 10px;
 }
@@ -1108,7 +1111,7 @@ input:hover:-ms-input-placeholder {
   	width: 100%;
   }
   .login-center{
-  	width: calc(100% - 40px);
+  	width: calc(100% - 20px);
   }
   .training-box{
   	flex-direction: column;
