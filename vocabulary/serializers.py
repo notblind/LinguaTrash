@@ -132,3 +132,7 @@ class FeedBackSerializer(serializers.Serializer):
 
 	def create(self, validated_data):
 		return FeedBack.objects.create(**validated_data)
+
+class HolidaySerializer(serializers.Serializer):
+	description = serializers.CharField(max_length=2048)
+	

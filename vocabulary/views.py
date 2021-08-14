@@ -5,10 +5,10 @@ from rest_framework.permissions import IsAuthenticated
 
 from accounts.models import Partner
 from accounts.serializers import PartnerSerializer
-from .models import Vocabulary, Words
+from .models import Vocabulary, Words, DayOfWeek, Holiday
 from .serializers import VocabularySerializer, WordSerializer, TranslationSerializer, \
 	WordSerializerForSecondMode, WordSerializerForThirdMode, FeedBackSerializer, \
-	FullVocabularySerializer
+	FullVocabularySerializer, HolidaySerializer
 
 from datetime import datetime
 import logging
@@ -160,7 +160,6 @@ class TrainingApi(APIView):
 		idVocabulary = request.data.get('data').get('idVocabulary')
 		words = sorted(Words.objects.filter(vocabulary=idVocabulary), key=lambda x: random.random())
 		
-		logging.error(words)
 		serializer = WordSerializer(words, many=True)
 		return Response({"training": serializer.data})
 
@@ -168,7 +167,6 @@ class TrainingApi(APIView):
 		idVocabulary = request.data.get('data').get('idVocabulary')
 		words = sorted(Words.objects.filter(vocabulary=idVocabulary), key=lambda x: random.random())
 		
-		logging.error(words)
 		serializer = WordSerializerForSecondMode(words, many=True)
 		return Response({"training": serializer.data})
 
@@ -186,6 +184,8 @@ class ExtraApi(APIView):
 
 		if method == 'create_feedback':
 			return self.create_feedback(request)
+		elif method == 'get_holidays':
+			return self.get_holidays(request)
 
 		return Response({"Not allow method"})
 
@@ -200,3 +200,20 @@ class ExtraApi(APIView):
 				res = serializer.save()
 				return Response({"success": "Message created successfully",
 											 "status": "success"})
+
+	def get_holidays(self, request):
+		now = datetime.now().strftime('%d.%m')
+		day_of_week = DayOfWeek.objects.filter(day_text=now)
+		data = None
+		if len(day_of_week) > 0:
+			holidays = Holiday.objects.filter(day=day_of_week[0])
+			data = HolidaySerializer(holidays, many=True)
+			logging.error(data)
+			if data and len(holidays) > 0:
+				if len(holidays) < 4:
+					data = data.data
+				else:
+					data = random.choices(data.data, k=3)
+
+		return Response({"now": datetime.now().strftime('%d.%m.%y'),
+										 "holidays": data})

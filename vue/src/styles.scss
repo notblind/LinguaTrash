@@ -444,8 +444,8 @@ input:hover:-ms-input-placeholder {
 }
 .menu .menu-items{
 	font-size: 14px;
-  letter-spacing: 0.01px;
-  height: 50px;
+	letter-spacing: 0.01px;
+/*  height: 50px;*/
 }
 .menu-item-font{
 	display: flex;
@@ -461,6 +461,15 @@ input:hover:-ms-input-placeholder {
 	border-bottom: solid 1px #e6e6e6;
 	margin-bottom: 10px;
 }
+
+.calendar{
+	font-size: 14px;
+	letter-spacing: 0.01px;
+}
+.calendar .holidays li{
+	padding-top: 5px;
+}
+
 .list-item-over{
   overflow-y: auto;
 }
@@ -882,14 +891,233 @@ input:hover:-ms-input-placeholder {
 }
 
 .logo-vocab .logo-ul-name{
-	overflow: hidden;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 350px;
 }
 
+.me-back{
+	background: #222;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+}
+.me-back .me-back-home{
+	width: calc(100% - 40px);
+	max-width: 1190px;
+}
+
+.me-circle-ul {
+  position: relative;
+  padding: 0;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.me-circle-ul li {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  transform-origin: 0% 100%;
+  border-width: 1px;
+  border-style: solid;
+  -moz-border-image: -moz-linear-gradient(
+      to bottom, 
+      #222, 
+      rgba(255, 255, 255, 0.8)
+    ) 1 100%;
+  -webkit-border-image: -webkit-linear-gradient(
+      to bottom, 
+      #222, 
+      rgba(255, 255, 255, 0.8)
+    ) 1 100%;
+
+
+  border-image: 
+    linear-gradient(
+      to bottom, 
+      #222, 
+      rgba(255, 255, 255, 0.8)
+    ) 1 100%;
+}
+.me-circle-ul li:hover {
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+}
+.me-circle-ul li:first-child {
+  transform: rotate(0deg) skewY(-30deg);
+}
+.me-circle-ul li:nth-child(2) {
+  transform: rotate(60deg) skewY(-30deg);
+}
+.me-circle-ul li:nth-child(3) {
+  transform: rotate(120deg) skewY(-30deg);
+}
+.me-circle-ul li:nth-child(4) {
+  transform: rotate(180deg) skewY(-30deg);
+}
+.me-circle-ul li:nth-child(5) {
+  transform: rotate(240deg) skewY(-30deg);
+}
+.me-circle-ul li:nth-child(6) {
+  transform: rotate(300deg) skewY(-30deg);
+}
+.me-circle-ul{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.me-circle{
+	position: relative;
+  width: 450px;
+  height: 450px;
+}
+.me-circle .me-skills{
+  position: absolute;
+  text-align: center;
+  font-weight: 600;
+	font-size: 16px;
+	letter-spacing: 0.01px;
+	font-family: "OpenSans";
+
+	width: 50px;
+	height: 50px;
+	background: #fff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: calc(50% - 25px);
+	right: calc(50% - 25px);
+}
+.me-circle-ul li div{
+	position: absolute;
+}
+
+.skill{
+	text-align: center;
+  font-weight: 600;
+	font-size: 16px;
+	letter-spacing: 0.01px;
+	font-family: "OpenSans";
+	color: white;
+}
+.skill .num{
+	position: absolute;
+}
+.skill .skill-name{
+	position: absolute;
+	max-width: 100px;
+}
+.skill-1 .num{
+	top: 170px;
+	left: 195px;
+}
+.skill-1 .skill-name{
+	top: 110px;
+	left: 120px;
+}
+
+.skill-2 .num{
+	top: 170px;
+	left: 245px;
+}
+.skill-2 .skill-name{
+	top: 100px;
+	left: 245px;
+	max-width: 100px;
+}
+
+.skill-3 .num{
+	top: 215px;
+	left: 265px;
+}
+.skill-3 .skill-name{
+	top: 215px;
+	left: 315px;
+}
+
+.skill-4 .num{
+	top: 255px;
+	left: 240px;
+}
+.skill-4 .skill-name{
+	top: 330px;
+	left: 245px;
+}
+
+.skill-5 .num{
+	top: 255px;
+	left: 195px;
+}
+.skill-5 .skill-name{
+	top: 330px;
+	left: 110px;
+}
+
+.skill-6 .num{
+	top: 215px;
+	left: 177px;
+}
+.skill-6 .skill-name{
+	top: 215px;
+	left: 60px;
+}
+.main-info{
+	margin-top: 10px;
+	margin-bottom: 40px;
+}
+.main-info-top{
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0.01px;
+	font-family: "OpenSans";
+	color: white;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #fff;
+}
+.main-info-top span{
+	margin-left: 6px;
+}
+.main-info-top .name div:nth-child(1){
+	font-size: 26px;
+}
+.main-info-top .name div:nth-child(2){
+	font-size: 16px;
+}
+.bottom-line{
+	margin-top: 5px;
+	color: white;
+	font-weight: 400;
+	letter-spacing: 0.01px;
+	font-size: 16px;
+	display: flex;
+	justify-content: space-between;
+	width: 300px;
+}
+.contant-info{
+	width: 50%;
+}
+
+
+
+
+
 @media only screen and (min-width: 992px) and (max-width: 1200px){
   /* styles for browsers larger than 960px; */
+  .calendar{
+		display: none;
+	}
+
   .container{
   	width: calc(100% - 20px);
   }
@@ -929,6 +1157,9 @@ input:hover:-ms-input-placeholder {
 }
 
 @media only screen and (max-width: 991.999999px){
+	.calendar{
+		display: none;
+	}
 	.container{
   	width: calc(100% - 20px);
   }

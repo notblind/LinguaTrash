@@ -36,6 +36,21 @@
 					
 				</div>
 			</div>
+
+			<div class="calendar" v-if="calendar">
+				<div class="calendar-date">
+					Праздники - {{calendar.now}}
+				</div>
+				<ul class="holidays">
+					<li v-for="item in calendar.holidays" :key="item.id">
+						<div class="menu-line">
+						</div>
+						{{item.description}}
+					</li>
+				</ul>
+			</div>
+
+			
 		</div>
 	</div>
 </template>
@@ -64,11 +79,15 @@ export default Vue.extend({
 	data() {
 		return {
 			partner: Boolean,
+			calendar: null
 		}
 	},
 	created() {
 		rps.getMeOnly().then((res) => {
 			this.partner = res.data.partner;
+		});
+		rps.getHolidays().then((res) => {
+			this.calendar = res.data;
 		});
 	},
 	methods: {

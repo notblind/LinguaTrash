@@ -1,16 +1,21 @@
 <template> 
 	<div id="app">
-		<div v-if="partner" class="container">
+		<div v-if="partner && !addition" class="container">
 			<Menu/>
 			<router-view/>
 		</div>
-		<div v-if="!partner">
+		<div v-if="!partner && !addition">
 			<LogIn/>
+		</div>
+
+		<div v-if="addition">
+			<Me/>
 		</div>
 	</div>
 </template>
 
 <script>
+import Me from '@/views/addition/Me';
 import LogIn from '@/views/login/Login';
 import Menu from '@/components/Menu';
 import RPService from './services/rps';
@@ -21,17 +26,26 @@ export default({
 	components: {
 		Menu,
 		LogIn,
+		Me
 	},
 	data() {
 		return {
-			partner: Boolean,
+			partner: undefined,
+			addition: Boolean
 		}
 	},
 	created() {
-		this.partner = undefined;
-		rps.getMeOnly().then((res) => {
-			this.partner = res.data.partner;
-		});
+		this.addition = false;
+		const currentUrl = window.location.pathname;
+		
+		if (currentUrl == '/me' || currentUrl == '/me/'){
+			this.addition = true;
+		} else {
+			this.partner = undefined;
+			rps.getMeOnly().then((res) => {
+				this.partner = res.data.partner;
+			});
+		}
 	}
 });
 </script>

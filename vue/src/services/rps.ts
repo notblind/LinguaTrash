@@ -8,7 +8,7 @@ export default class RPService {
 	private mainUrl: string;
 
 	constructor() {
-		if ('127.0.0.1:8080'.includes(window.location.host)){
+		if ('127.0.0.1:8080'.includes(window.location.host) || 'localhost:8080'.includes(window.location.host)){
 			this.mainUrl = 'http://localhost:8000/';
 		} else {
 			this.mainUrl = 'https://linguatrash.fun/'
@@ -160,6 +160,11 @@ export default class RPService {
 
 	createFeedback(text: any): Promise<any>{
 		this._data = this.sendRequest('api/vocabulary/extra', 'create_feedback', {text: text});
+		return this._data
+	}
+
+	getHolidays(): Promise<any>{
+		this._data = this.sendRequest('api/vocabulary/extra', 'get_holidays', {});
 		return this._data
 	}
 

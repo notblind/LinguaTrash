@@ -35,7 +35,12 @@ const routes: Array<RouteConfig> = [
     path: '/info',
     name: 'Info',
     component: () => import('../views/Info.vue'),
-  }
+  },
+  // {
+  //   path: '/me',
+  //   name: 'Me',
+  //   component: () => import('../views/addition/Me.vue'),
+  // }
 ]
 
 const router = new VueRouter({

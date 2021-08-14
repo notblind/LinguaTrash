@@ -10,7 +10,6 @@ class ApiPartner(APIView):
 	permission_classes=[IsAuthenticated]
 
 	def post(self, request):
-		logging.error('------')
 		method = request.data.get('method')
 
 		if method == 'get_me':
