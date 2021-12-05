@@ -1,7 +1,11 @@
-from django.shortcuts import render
+import logging
+import random
+
+from datetime import datetime
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import render
 
 from accounts.models import Partner
 from accounts.serializers import PartnerSerializer
@@ -9,10 +13,6 @@ from .models import Vocabulary, Words, DayOfWeek, Holiday
 from .serializers import VocabularySerializer, WordSerializer, TranslationSerializer, \
 	WordSerializerForSecondMode, WordSerializerForThirdMode, FeedBackSerializer, \
 	FullVocabularySerializer, HolidaySerializer
-
-from datetime import datetime
-import logging
-import random
 
 # Create your views here.
 
@@ -28,7 +28,6 @@ class PartnerApi(APIView):
 
 	def get_me(self, request):
 		user = request.user
-		logging.error(user)
 		if user:
 			partner = Partner.objects.get(user=user.id)
 			serializer = PartnerSerializer(partner)
@@ -70,6 +69,7 @@ class VocabularyApi(APIView):
 				serializer = FullVocabularySerializer(vocabulary, many=True)
 			else:
 				serializer = VocabularySerializer(vocabulary, many=True)
+
 			return Response({"vocabulary": serializer.data})
 
 	def get_words(self, request):
@@ -115,7 +115,6 @@ class VocabularyApi(APIView):
 	def	create_word(self, request):
 		data = request.data.get('data').get('word')
 
-		logging.error(data)
 		word = {
 			'word': data['word'],
 			'vocabulary': data['vocabulary']
@@ -196,6 +195,8 @@ class ExtraApi(APIView):
 			partner = Partner.objects.get(user=user.id)
 			data['partner'] = partner.id
 			serializer = FeedBackSerializer(data=data)
+
+
 			if serializer.is_valid(raise_exception=True):
 				res = serializer.save()
 				return Response({"success": "Message created successfully",
@@ -208,12 +209,15 @@ class ExtraApi(APIView):
 		if len(day_of_week) > 0:
 			holidays = Holiday.objects.filter(day=day_of_week[0])
 			data = HolidaySerializer(holidays, many=True)
-			logging.error(data)
 			if data and len(holidays) > 0:
 				if len(holidays) < 4:
 					data = data.data
 				else:
-					data = random.choices(data.data, k=3)
+					res = list()
+					for item in random.choices(data.data, k=4):
+						if item not in res:
+							res.append(item)
+					data = res
 
 		return Response({"now": datetime.now().strftime('%d.%m.%y'),
 										 "holidays": data})
