@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Vocabulary, Words, Translation, FeedBack, DayOfWeek, Holiday
 
 # Register your models here.

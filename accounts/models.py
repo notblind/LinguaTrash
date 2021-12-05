@@ -1,9 +1,10 @@
+import logging
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-import logging
 
 class Partner(models.Model):
 	user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile")
@@ -12,6 +13,7 @@ class Partner(models.Model):
 
 	def __str__(self):
 		return self.user.username
+
 
 def save_group(sender, instance, created, **kwargs):
 	p = Partner.objects.filter(user=instance)

@@ -1,10 +1,12 @@
+import logging
+
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+
 from .models import Partner
 from .serializers import PartnerSerializer
 from .license import IsOwnerProfileOrReadOnly
 
-import logging
 
 class ApiPartner(APIView):
 	permission_classes=[IsAuthenticated]
