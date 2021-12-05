@@ -213,11 +213,7 @@ class ExtraApi(APIView):
 				if len(holidays) < 4:
 					data = data.data
 				else:
-					res = list()
-					for item in random.choices(data.data, k=4):
-						if item not in res:
-							res.append(item)
-					data = res
+					data = random.sample(data.data, k=3)
 
 		return Response({"now": datetime.now().strftime('%d.%m.%y'),
 										 "holidays": data})
