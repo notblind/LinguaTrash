@@ -212,7 +212,7 @@ body{
 
 .button-add:hover {
 	color: #376bff;
-  border: solid 1px #376bff; 
+  border: solid 1px #376bff;
 }
 .list-item{
 	justify-content: space-between;
@@ -588,7 +588,7 @@ input:hover:-ms-input-placeholder {
 	position: relative;
 	min-height: 200px;
 
-	
+
   cursor: pointer;
 
   font-weight: 600;
@@ -685,7 +685,7 @@ input:hover:-ms-input-placeholder {
 }
 .training-back{
 	transform: rotate(-90deg);
-	
+
 	left: -122px;
 	position: absolute;
 	width: 280px;
@@ -694,7 +694,7 @@ input:hover:-ms-input-placeholder {
 }
 .training-next{
 	transform: rotate(90deg);
-	
+
 	right: -122px;
 	position: absolute;
 	width: 280px;
@@ -928,21 +928,21 @@ input:hover:-ms-input-placeholder {
   border-width: 1px;
   border-style: solid;
   -moz-border-image: -moz-linear-gradient(
-      to bottom, 
-      #222, 
+      to bottom,
+      #222,
       rgba(255, 255, 255, 0.8)
     ) 1 100%;
   -webkit-border-image: -webkit-linear-gradient(
-      to bottom, 
-      #222, 
+      to bottom,
+      #222,
       rgba(255, 255, 255, 0.8)
     ) 1 100%;
 
 
-  border-image: 
+  border-image:
     linear-gradient(
-      to bottom, 
-      #222, 
+      to bottom,
+      #222,
       rgba(255, 255, 255, 0.8)
     ) 1 100%;
 }
@@ -1223,7 +1223,7 @@ input:hover:-ms-input-placeholder {
     left: 0;
   }
   .modal-form .modal-title{
-  	padding-left: 0 !important; 
+  	padding-left: 0 !important;
   }
   .add-vocab-box .add-vocab-box-mobile{
   	width: 30px !important;

@@ -25,10 +25,10 @@
 				v-on:click="currentMode=='first' ? nextWord() : ''"
 				style="cursor: pointer;">
 
-				<div class="training-next button-add" 
+				<div class="training-next button-add"
 					v-if="currentIndex+1!=training.length && (currentMode=='first' || ch)" v-bind:class="{ 'button-add-hov': hover1}">Следующее слово</div>
 
-				<div class="training-next button-add" 
+				<div class="training-next button-add"
 					v-if="currentIndex+1==training.length && (currentMode=='first' || ch)" v-bind:class="{ 'button-add-hov': hover1}">Дальше</div>
 				<div class="training-solve" v-if="currentMode=='first'" style="text-align: center;">
 					<div v-for="trans in currentItem.translations" :key="trans.id">
@@ -179,7 +179,7 @@ export default Vue.extend({
 			} else {
 				if (!this.modes || this.modes.first){
 					this.currentMode='first'
-				} else 
+				} else
 				if (this.modes.second){
 					this.currentMode='second'
 				} else if (this.modes.third){

@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vocabulary', '0015_dayofweek_holiday'),
+        ("vocabulary", "0015_dayofweek_holiday"),
     ]
 
     operations = [
         migrations.AlterModelTable(
-            name='dayofweek',
-            table='dayofweek',
+            name="dayofweek",
+            table="dayofweek",
         ),
         migrations.AlterModelTable(
-            name='holiday',
-            table='holiday',
+            name="holiday",
+            table="holiday",
         ),
     ]

@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from .models import Vocabulary, Words, Translation, FeedBack, DayOfWeek, Holiday
+from .models import (
+    DayOfWeek,
+    FeedBack,
+    Holiday,
+    Translation,
+    Vocabulary,
+    Words,
+)
 
 # Register your models here.
 

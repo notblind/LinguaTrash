@@ -21,7 +21,7 @@
 					</div>
 					<div class="rightpart-list">
 						<div class="button-add">Тренировка</div>
-						<router-link class="button-add" style="margin-left: 10px;" tag="div" 
+						<router-link class="button-add" style="margin-left: 10px;" tag="div"
 						:to="{path: 'words/' + item.id}">Редактировать</router-link>
 						<div class="button-add" style="margin-left: 10px; width: 38px; padding: 0;"
 							v-bind:style="{ color: item.like ? '#376bff' : ''}"
@@ -73,15 +73,15 @@
 							<div class="button-add" style="margin-bottom: 15px;" v-on:click="train(item)">Начать тренировку</div>
 				<!-- 			<div class="button-add" style="margin-bottom: 15px;"
 								v-on:click="visAddPhrase = false; idVocabulary=item.id">Добавить слово или словосочетание</div> -->
-							
-							
+
+
 						</div>
 					</div>
 
-					<div class="flex-box add-vocab-box" 
+					<div class="flex-box add-vocab-box"
 						v-on:mouseover="hover=false"
 						v-on:mouseleave="hover=true" v-on:click="visAdd = false">
-						<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s" 
+						<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s"
 						v-bind:style="{ opacity: !hover ? '0.0' : '0.5'}"></div>
 
 						<font-awesome-icon style="margin-right: 20px; width: 50px;" icon="plus" size="6x"
@@ -106,10 +106,10 @@
 				</div>
 				<ul class="list-ul list-item-over scroll" v-bind:style="{ 'max-height': vocabulary.length==1 ? '340px' : '450px'}">
 
-					<div class="list-item add-vocab-box" 
-						v-on:mouseover="hover2=false" style="height: 70px; min-height: 70px;     border-bottom: solid 1px #e6e6e6;" 
+					<div class="list-item add-vocab-box"
+						v-on:mouseover="hover2=false" style="height: 70px; min-height: 70px;     border-bottom: solid 1px #e6e6e6;"
 						v-on:mouseleave="hover2=true" v-on:click="visAddPhrase = false; idVocabulary=vocabularyActive.id">
-						<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s" 
+						<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s"
 						v-bind:style="{ opacity: !hover2 ? '0.0' : '0.5'}"></div>
 
 						<font-awesome-icon style="margin-right: 15px;" icon="plus" size="2x"/>
@@ -149,7 +149,7 @@
 					<div class="rightpart-list">
 
 						<div class="button-add" v-on:click="train(item)">Начать тренировку</div>
-						<router-link class="button-add" style="margin-left: 10px;" tag="div" 
+						<router-link class="button-add" style="margin-left: 10px;" tag="div"
 						:to="{path: 'words/' + item.id}">
 							<!-- <div class="view-mode right-flex-box-item">
 								<span></span>
@@ -242,7 +242,7 @@ export default Vue.extend({
 	},
 	data() {
 		return {
-			visError: Boolean, 
+			visError: Boolean,
 			idVocabulary: Number,
 			visAddPhrase: Boolean,
 			vTrainingModal: undefined,

@@ -1,4 +1,4 @@
-<template> 
+<template>
 	<div id="app">
 		<div v-if="partner && !addition" class="container">
 			<Menu/>
@@ -37,7 +37,7 @@ export default({
 	created() {
 		this.addition = false;
 		const currentUrl = window.location.pathname;
-		
+
 		if (currentUrl == '/me' || currentUrl == '/me/'){
 			this.addition = true;
 		} else {

@@ -1,7 +1,13 @@
-db.sqlite3
-accounts/__pycache__/*
-vocabulary/__pycache__/*
-loco/__pycache__/*
+/venv
+.venv
+/env
+.env
+.idea/
+**/__pycache__/
+*.pyc
+.DS_Store
+
+celerybeat-schedule
 
 loco/settings.py
 
@@ -28,4 +34,3 @@ loco/settings.py
 /vue/*njsproj
 /vue/*sln
 /vue/*sw?
-

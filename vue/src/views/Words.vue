@@ -13,10 +13,10 @@
 				</div>
 			</div>
 			<ul class="list-ul">
-				<div class="list-item add-vocab-box" 
-					v-on:mouseover="hover2=false" style="height: 70px; min-height: 70px;     border-bottom: solid 1px #e6e6e6;" 
+				<div class="list-item add-vocab-box"
+					v-on:mouseover="hover2=false" style="height: 70px; min-height: 70px;     border-bottom: solid 1px #e6e6e6;"
 					v-on:mouseleave="hover2=true" v-on:click="visAddPhrase = false">
-					<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s" 
+					<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s"
 					v-bind:style="{ opacity: !hover2 ? '0.0' : '0.5'}"></div>
 
 					<font-awesome-icon style="margin-right: 15px;" icon="plus" size="2x"/>

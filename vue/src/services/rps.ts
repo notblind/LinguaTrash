@@ -60,7 +60,7 @@ export default class RPService {
 		const bodyFormData = new FormData();
 		bodyFormData.append('username', username);
 		bodyFormData.append('password', password);
-		return axios.post(this.mainUrl + 'auth/jwt/create', bodyFormData)
+		return axios.post(this.mainUrl + 'auth/jwt/create/', bodyFormData)
 	}
 
 	logIn(username: any, password: any){
@@ -100,7 +100,7 @@ export default class RPService {
 				'Authorization': 'Bearer ' + this._getJWTToken(),
 			}
 		}
-		return axios.post(this.mainUrl + 'api/vocabulary/partner', {method: 'get_me', data: {}}, config)	
+		return axios.post(this.mainUrl + 'api/vocabulary/partner', {method: 'get_me', data: {}}, config)
 	}
 
 	getMe(): Promise<any>{

@@ -33,7 +33,7 @@
 					<div tag="div" class="menu-item">
 						<span class="menu-item-font"><font-awesome-icon icon="user-circle" size="lg" :style="{ color: '#3687e3' }"/></span><span class="menu-name" style="margin-left: 10px;">Выйти</span>
 					</div>
-					
+
 				</div>
 			</div>
 
@@ -50,7 +50,7 @@
 				</ul>
 			</div>
 
-			
+
 		</div>
 	</div>
 </template>
