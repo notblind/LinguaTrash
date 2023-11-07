@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {Method} from 'axios';
 
 export default class RPService {
 
@@ -36,24 +36,33 @@ export default class RPService {
 			}
 		}
 		return axios.post(this.mainUrl + url, {method: method, data: data}, config).catch(function (error) {
-		if (error.response) {
-			// Request made and server responded
-			// console.log(error.response.data);
-			// console.log(error.response.status);
-			// console.log(error.response.headers);
-			if (error.response.status == '401'){
-				// TODO: сделать проверку на url  и только тогда редиректить
-				window.location.reload(true);
+			if (error.response) {
+				// Request made and server responded
+				if (error.response.status == '401'){
+					// TODO: сделать проверку на url  и только тогда редиректить
+					window.location.reload(true);
+				}
+			} else if (error.request) {
+				// The request was made but no response was received
+				console.log(error.request);
+			} else {
+				// Something happened in setting up the request that triggered an Error
+				console.log('Error', error.message);
 			}
-		} else if (error.request) {
-			// The request was made but no response was received
-			console.log(error.request);
-		} else {
-			// Something happened in setting up the request that triggered an Error
-			console.log('Error', error.message);
-		}
 
-	});
+		});
+	}
+
+	async sendRequestNew(url: string, method: Method, data?: any) {
+		const res = await axios({
+			method: method,
+			url: this.mainUrl + url,
+			data: data,
+			headers: {
+				'Authorization': 'Bearer ' + this._getJWTToken(),
+			}
+		})
+		return res.data
 	}
 
 	_login(username: any, password: any): Promise<any>{
@@ -108,33 +117,29 @@ export default class RPService {
 		return this._data
 	}
 
-	getVocabulary(isFull?: boolean): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary', 'get_vocabulary', {isFull: isFull});
+	async getListVocabulary() {
+		return await this.sendRequestNew("vocabulary/api/v1/vocabulary", "GET");
+	}
+
+	async createVocabulary(vocabulary: any): Promise<any>{
+		this._data = this.sendRequestNew("vocabulary/api/v1/vocabulary", "POST", vocabulary);
 		return this._data
 	}
 
-	deleteVocabulary(idVocabulary: number): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary', 'delete_vocabulary', {idVocabulary: idVocabulary});
-		return this._data
+	async getVocabulary(idVocabulary: number) {
+		return await this.sendRequestNew(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "GET");
 	}
 
-	getOneVocabulary(idVocabulary: number): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary', 'get_one_vocabulary', {idVocabulary: idVocabulary});
-		return this._data
+	async deleteVocabulary(idVocabulary: number) {
+		return await this.sendRequestNew(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "DELETE");
+	}
+
+	async editVocabulary(idVocabulary: number, vocabulary: any) {
+		return await this.sendRequestNew(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "PATCH", vocabulary);
 	}
 
 	getWords(idVocabulary: number): Promise<any>{
 		this._data = this.sendRequest('api/vocabulary', 'get_words', {idVocabulary: idVocabulary});
-		return this._data
-	}
-
-	createVocabulary(vocabulary: any): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary', 'create_vocabulary', {vocabulary: vocabulary});
-		return this._data
-	}
-
-	editVocabulary(vocabulary: any): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary', 'edit_vocabulary', {vocabulary: vocabulary});
 		return this._data
 	}
 

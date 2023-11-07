@@ -136,9 +136,9 @@ export default Vue.extend({
 		window.addEventListener('resize', this.updateWidth);
 		this.hover1 = false;
 		this.hover2 = false;
-		rps.getOneVocabulary(this.idVocabulary).then(res => {
-			if (res.data.vocabulary){
-				this.length = res.data.vocabulary.ammount;
+		rps.getVocabulary(this.idVocabulary).then(res => {
+			if (res){
+				this.length = res.ammount;
 			}
 		});
 		this.changeMode();

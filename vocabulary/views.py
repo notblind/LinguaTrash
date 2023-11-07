@@ -50,37 +50,12 @@ class VocabularyApi(APIView):
     def post(self, request):
         method = request.data.get("method")
 
-        if method == "get_vocabulary":
-            return self.get_vocabulary(request)
-        elif method == "get_words":
+        if method == "get_words":
             return self.get_words(request)
-        elif method == "create_vocabulary":
-            return self.create_vocabulary(request)
-        elif method == "edit_vocabulary":
-            return self.edit_vocabulary(request)
-        elif method == "delete_vocabulary":
-            return self.delete_vocabulary(request)
-        elif method == "get_one_vocabulary":
-            return self.get_one_vocabulary(request)
         elif method == "create_word":
             return self.create_word(request)
-        elif method == "get_me":
-            return self.get_me(request)
 
         return Response({"Not allow method"})
-
-    def get_vocabulary(self, request):
-        user = request.user
-        if user:
-            partner = Partner.objects.get(user=user.id)
-            vocabulary = Vocabulary.objects.filter(partner=partner.id)
-
-            if request.data.get("data").get("isFull"):
-                serializer = FullVocabularySerializer(vocabulary, many=True)
-            else:
-                serializer = VocabularySerializer(vocabulary, many=True)
-
-            return Response({"vocabulary": serializer.data})
 
     def get_words(self, request):
         idVocabulary = request.data.get("data").get("idVocabulary")
@@ -88,49 +63,6 @@ class VocabularyApi(APIView):
         words = Words.objects.filter(vocabulary=idVocabulary)
         serializer = WordSerializer(words, many=True)
         return Response({"words": serializer.data})
-
-    def create_vocabulary(self, request):
-        data = request.data.get("data").get("vocabulary")
-        user = request.user
-        if user:
-            partner = Partner.objects.get(user=user.id)
-            data["partner"] = partner.id
-            serializer = VocabularySerializer(data=data)
-            if serializer.is_valid(raise_exception=True):
-                res = serializer.save()
-                return Response(
-                    {
-                        "success": "Vocabulary '{}' created successfully".format(
-                            res.name
-                        ),
-                        "status": "success",
-                    }
-                )
-
-    def edit_vocabulary(self, request):
-        data = request.data.get("data").get("vocabulary")
-
-        vocabulary = Vocabulary.objects.get(pk=data["id"])
-        serializer = VocabularySerializer(vocabulary, data=data)
-        if serializer.is_valid(raise_exception=True):
-            res = serializer.save()
-            return Response(
-                {
-                    "success": "Vocabulary '{}' edited successfully".format(res.name),
-                    "status": "success",
-                }
-            )
-
-    def delete_vocabulary(self, request):
-        id = request.data.get("data").get("idVocabulary")
-
-        try:
-            vocabulary = Vocabulary.objects.get(pk=id)
-        except Vocabulary.DoesNotExist:
-            return Response("404")
-
-        vocabulary.delete()
-        return Response("success")
 
     def create_word(self, request):
         data = request.data.get("data").get("word")
@@ -151,12 +83,6 @@ class VocabularyApi(APIView):
                     "status": "success",
                 }
             )
-
-    def get_one_vocabulary(self, request):
-        idVocabulary = request.data.get("data").get("idVocabulary")
-        vocabulary = Vocabulary.objects.get(id=idVocabulary)
-        serializer = VocabularySerializer(vocabulary)
-        return Response({"vocabulary": serializer.data})
 
 
 class TrainingApi(APIView):

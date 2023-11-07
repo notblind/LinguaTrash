@@ -262,8 +262,8 @@ export default Vue.extend({
 	created() {
 		this.updateWidth();
 		window.addEventListener('resize', this.updateWidth);
-		rps.getVocabulary(true).then(res => {
-			this.vocabulary = res.data.vocabulary;
+		rps.getListVocabulary().then(res => {
+			this.vocabulary = res;
 			if (this.vocabulary && this.vocabulary.length > 0){
 				this.vocabularyActive = this.vocabulary[0];
 			}
@@ -273,8 +273,8 @@ export default Vue.extend({
 		addVocabulary() {
 			if (this.vocab.name.trim()){
 				rps.createVocabulary(this.vocab).then(() => {
-					rps.getVocabulary(true).then(res => {
-						this.vocabulary = res.data.vocabulary;
+					rps.getListVocabulary().then(res => {
+						this.vocabulary = res;
 						this.visAdd = true;
 						this.vocab.name = null;
 						if (this.vocabulary && this.vocabulary.length > 0){
@@ -296,9 +296,9 @@ export default Vue.extend({
 		},
 		clickLike(item){
 			item.like = !item.like;
-			rps.editVocabulary(item).then(() => {
-				rps.getVocabulary(true).then(res => {
-					this.vocabulary = res.data.vocabulary;
+			rps.editVocabulary(item.id, item).then(() => {
+				rps.getListVocabulary().then(res => {
+					this.vocabulary = res;
 					const v = this.vocabulary.filter(x => x.id == this.vocabularyActive.id);
 					if (v && v.length > 0){
 						this.vocabularyActive = v[0];
@@ -307,8 +307,8 @@ export default Vue.extend({
 			});
 		},
 		getData(){
-			rps.getVocabulary(true).then(res => {
-				this.vocabulary = res.data.vocabulary;
+			rps.getListVocabulary().then(res => {
+				this.vocabulary = res;
 					const v = this.vocabulary.filter(x => x.id == this.vocabularyActive.id);
 					if (v && v.length > 0){
 						this.vocabularyActive = v[0];
@@ -324,8 +324,8 @@ export default Vue.extend({
 		},
 		deleteVocab(){
 			rps.deleteVocabulary(this.vocabularyActive.id).then(res => {
-				rps.getVocabulary(true).then(res => {
-					this.vocabulary = res.data.vocabulary;
+				rps.getListVocabulary().then(res => {
+					this.vocabulary = res;
 					this.visDeleteVocab = true;
 					if (this.vocabulary && this.vocabulary.length > 0){
 						this.vocabularyActive = this.vocabulary[0];

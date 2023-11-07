@@ -89,8 +89,8 @@ export default Vue.extend({
 		};
 	},
 	created() {
-		rps.getOneVocabulary(this.idVocabulary).then(res => {
-			this.vocabulary = res.data.vocabulary;
+		rps.getVocabulary(this.idVocabulary).then(res => {
+			this.vocabulary = res;
 		});
 		rps.getWords(this.idVocabulary).then(res => {
 			this.words = res.data.words;
