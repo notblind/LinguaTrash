@@ -8,13 +8,11 @@ from rest_framework.views import APIView
 from accounts.models import Partner
 from accounts.serializers import PartnerSerializer
 
-from .models import DayOfWeek, Holiday, Vocabulary, Words
+from .models import DayOfWeek, Holiday, Words
 from .serializers import (
     FeedBackSerializer,
-    FullVocabularySerializer,
     HolidaySerializer,
     TranslationSerializer,
-    VocabularySerializer,
     WordSerializer,
     WordSerializerForSecondMode,
     WordSerializerForThirdMode,
