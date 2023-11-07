@@ -59,23 +59,6 @@ class FullVocabularySerializer(serializers.ModelSerializer):
         return len(words)
 
 
-class WordSerializer(serializers.ModelSerializer):
-    translations = serializers.SerializerMethodField("get_translations", read_only=True)
-
-    class Meta:
-        model = Words
-        fields = ["id", "word", "translations", "vocabulary"]
-        read_only_fields = ["id"]
-
-    def create(self, validated_data):
-        return Words.objects.create(**validated_data)
-
-    def get_translations(self, obj):
-        translations = Translation.objects.filter(word=obj.id)
-        serializer = TranslationSerializer(translations, many=True)
-        return serializer.data
-
-
 class TranslationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Translation
@@ -84,6 +67,18 @@ class TranslationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Translation.objects.create(**validated_data)
+
+
+class WordSerializer(serializers.ModelSerializer):
+    translations = TranslationSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Words
+        fields = ["id", "word", "translations", "vocabulary"]
+        read_only_fields = ["id"]
+
+    def create(self, validated_data):
+        return Words.objects.create(**validated_data)
 
 
 class WordSerializerForSecondMode(serializers.ModelSerializer):

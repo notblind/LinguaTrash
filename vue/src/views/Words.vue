@@ -93,13 +93,13 @@ export default Vue.extend({
 			this.vocabulary = res;
 		});
 		rps.getWords(this.idVocabulary).then(res => {
-			this.words = res.data.words;
+			this.words = res;
 		});
 	},
 	methods: {
 		getData(){
 			rps.getWords(this.idVocabulary).then(res => {
-				this.words = res.data.words;
+				this.words = res;
 			});
 		},
 		deleteVocab(){

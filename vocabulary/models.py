@@ -35,7 +35,7 @@ class Words(models.Model):
 class Translation(models.Model):
     translate = models.CharField(max_length=2048)
     word = models.ForeignKey(
-        "Words", related_name="word_realate", on_delete=models.CASCADE
+        "Words", related_name="translations", on_delete=models.CASCADE
     )
 
     def __str__(self):

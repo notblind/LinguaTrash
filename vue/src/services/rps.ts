@@ -54,14 +54,16 @@ export default class RPService {
 	}
 
 	async sendRequestNew(url: string, method: Method, data?: any) {
-		const res = await axios({
+		const config = {
 			method: method,
 			url: this.mainUrl + url,
 			data: data,
 			headers: {
 				'Authorization': 'Bearer ' + this._getJWTToken(),
-			}
-		})
+			},
+			params: method === "GET" ? data : {},
+		}
+		const res = await axios(config)
 		return res.data
 	}
 
@@ -138,14 +140,12 @@ export default class RPService {
 		return await this.sendRequestNew(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "PATCH", vocabulary);
 	}
 
-	getWords(idVocabulary: number): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary', 'get_words', {idVocabulary: idVocabulary});
-		return this._data
+	async getWords(idVocabulary: number, vocabulary: any) {
+		return await this.sendRequestNew('vocabulary/api/v1/word', "GET", {vocabulary: idVocabulary});
 	}
 
-	createWord(word: any): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary', 'create_word', {word: word});
-		return this._data
+	async createWord(word: any) {
+		return await this.sendRequestNew('vocabulary/api/v1/word', "POST", word);
 	}
 
 	modeFirst(idVocabulary: number): Promise<any>{

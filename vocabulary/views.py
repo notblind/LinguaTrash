@@ -12,7 +12,6 @@ from .models import DayOfWeek, Holiday, Words
 from .serializers import (
     FeedBackSerializer,
     HolidaySerializer,
-    TranslationSerializer,
     WordSerializer,
     WordSerializerForSecondMode,
     WordSerializerForThirdMode,
@@ -38,47 +37,6 @@ class PartnerApi(APIView):
             serializer = PartnerSerializer(partner)
             return Response({"partner": serializer.data})
         return Response({"403"})
-
-
-class VocabularyApi(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        method = request.data.get("method")
-
-        if method == "get_words":
-            return self.get_words(request)
-        elif method == "create_word":
-            return self.create_word(request)
-
-        return Response({"Not allow method"})
-
-    def get_words(self, request):
-        idVocabulary = request.data.get("data").get("idVocabulary")
-
-        words = Words.objects.filter(vocabulary=idVocabulary)
-        serializer = WordSerializer(words, many=True)
-        return Response({"words": serializer.data})
-
-    def create_word(self, request):
-        data = request.data.get("data").get("word")
-
-        word = {"word": data["word"], "vocabulary": data["vocabulary"]}
-        serializer = WordSerializer(data=word)
-        if serializer.is_valid(raise_exception=True):
-            res = serializer.save()
-            for translate in data["translations"]:
-                if translate and type(translate) == str and translate.strip() != "":
-                    translate_data = {"translate": translate, "word": res.id}
-                    serializer = TranslationSerializer(data=translate_data)
-                    if serializer.is_valid(raise_exception=False):
-                        serializer.save()
-            return Response(
-                {
-                    "success": "Word '{}' created successfully".format(res.word),
-                    "status": "success",
-                }
-            )
 
 
 class TrainingApi(APIView):

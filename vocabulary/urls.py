@@ -5,10 +5,9 @@ from vocabulary.api import (
     VocabularyListCreateAPI,
     WordListCreateAPI,
 )
-from vocabulary.views import ExtraApi, PartnerApi, TrainingApi, VocabularyApi
+from vocabulary.views import ExtraApi, PartnerApi, TrainingApi
 
 urlpatterns = [
-    path("", VocabularyApi.as_view()),
     path("api/v1/vocabulary", VocabularyListCreateAPI.as_view()),
     path("api/v1/vocabulary/<int:pk>", VocabularyAPI.as_view()),
     path("api/v1/word", WordListCreateAPI.as_view()),
