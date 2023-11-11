@@ -83,8 +83,8 @@ export default Vue.extend({
 		}
 	},
 	created() {
-		rps.getMeOnly().then((res) => {
-			this.partner = res.data.partner;
+		rps.getMe().then((res) => {
+			this.partner = res;
 		});
 		rps.getHolidays().then((res) => {
 			this.calendar = res.data;

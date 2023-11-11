@@ -105,18 +105,8 @@ export default class RPService {
 		return this._data
 	}
 
-	getMeOnly(): Promise<any>{
-		const config = {
-			headers: {
-				'Authorization': 'Bearer ' + this._getJWTToken(),
-			}
-		}
-		return axios.post(this.mainUrl + 'api/vocabulary/partner', {method: 'get_me', data: {}}, config)
-	}
-
-	getMe(): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary/partner', 'get_me', {});
-		return this._data
+	async getMe() {
+		return await this.sendRequestNew("account/api/v1/partner", "GET");
 	}
 
 	async getListVocabulary() {

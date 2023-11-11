@@ -28,7 +28,7 @@ export default Vue.extend({
 	},
 	created() {
 		rps.getMe().then((res) => {
-			this.partner = res.data.partner;
+			this.partner = res;
 		});
 	},
 	methods: {

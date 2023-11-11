@@ -42,8 +42,8 @@ export default({
 			this.addition = true;
 		} else {
 			this.partner = undefined;
-			rps.getMeOnly().then((res) => {
-				this.partner = res.data.partner;
+			rps.getMe().then((res) => {
+				this.partner = res;
 			});
 		}
 	}

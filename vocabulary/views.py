@@ -17,27 +17,6 @@ from .serializers import (
     WordSerializerForThirdMode,
 )
 
-# Create your views here.
-
-
-class PartnerApi(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        method = request.data.get("method")
-
-        if method == "get_me":
-            return self.get_me(request)
-        return Response({"Not allow method"})
-
-    def get_me(self, request):
-        user = request.user
-        if user:
-            partner = Partner.objects.get(user=user.id)
-            serializer = PartnerSerializer(partner)
-            return Response({"partner": serializer.data})
-        return Response({"403"})
-
 
 class TrainingApi(APIView):
     permission_classes = [IsAuthenticated]
