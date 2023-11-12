@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 
 class Vocabulary(models.Model):
     partner = models.ForeignKey(

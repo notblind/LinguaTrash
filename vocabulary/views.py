@@ -6,58 +6,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accounts.models import Partner
-from accounts.serializers import PartnerSerializer
 
-from .models import DayOfWeek, Holiday, Words
-from .serializers import (
-    FeedBackSerializer,
-    HolidaySerializer,
-    WordSerializer,
-    WordSerializerForSecondMode,
-    WordSerializerForThirdMode,
-)
-
-
-class TrainingApi(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        method = request.data.get("method")
-
-        if method == "mode_first":
-            return self.mode_first(request)
-        elif method == "mode_second":
-            return self.mode_second(request)
-        elif method == "mode_third":
-            return self.mode_third(request)
-
-        return Response({"Not allow method"})
-
-    def mode_first(self, request):
-        idVocabulary = request.data.get("data").get("idVocabulary")
-        words = sorted(
-            Words.objects.filter(vocabulary=idVocabulary), key=lambda x: random.random()
-        )
-
-        serializer = WordSerializer(words, many=True)
-        return Response({"training": serializer.data})
-
-    def mode_second(self, request):
-        idVocabulary = request.data.get("data").get("idVocabulary")
-        words = sorted(
-            Words.objects.filter(vocabulary=idVocabulary), key=lambda x: random.random()
-        )
-
-        serializer = WordSerializerForSecondMode(words, many=True)
-        return Response({"training": serializer.data})
-
-    def mode_third(self, request):
-        idVocabulary = request.data.get("data").get("idVocabulary")
-        words = sorted(
-            Words.objects.filter(vocabulary=idVocabulary), key=lambda x: random.random()
-        )
-        serializer = WordSerializerForThirdMode(words, many=True)
-        return Response({"training": serializer.data})
+from .models import DayOfWeek, Holiday
+from .serializers import FeedBackSerializer, HolidaySerializer
 
 
 class ExtraApi(APIView):

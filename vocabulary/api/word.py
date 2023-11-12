@@ -11,9 +11,7 @@ class WordListCreateAPI(ListCreateAPIView):
     serializer_class = WordSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["vocabulary"]
-
-    def get_queryset(self):
-        return Words.objects.all()
+    queryset = Words.objects.all()
 
     def post(self, request, *args, **kwargs):
         res = self.create(request, *args, **kwargs)

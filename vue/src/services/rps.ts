@@ -138,19 +138,12 @@ export default class RPService {
 		return await this.sendRequestNew('vocabulary/api/v1/word', "POST", word);
 	}
 
-	modeFirst(idVocabulary: number): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary/training', 'mode_first', {idVocabulary: idVocabulary});
-		return this._data
-	}
-
-	modeSecond(idVocabulary: number): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary/training', 'mode_second', {idVocabulary: idVocabulary});
-		return this._data
-	}
-
-	modeTrird(idVocabulary: number): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary/training', 'mode_third', {idVocabulary: idVocabulary});
-		return this._data
+	async getTraining(idVocabulary: number, mode: string) {
+		const data = {
+			vocabulary: idVocabulary,
+			mode: mode,
+		}
+		return await this.sendRequestNew('vocabulary/api/v1/training', "GET", data);
 	}
 
 	createFeedback(text: any): Promise<any>{

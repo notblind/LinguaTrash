@@ -200,8 +200,8 @@ export default Vue.extend({
 			}
 		},
 		modeFirst(){
-			rps.modeFirst(this.idVocabulary).then(res => {
-				this.training = res.data.training;
+			rps.getTraining(this.idVocabulary, "card").then(res => {
+				this.training = res;
 				if (this.training && this.training.length > 0){
 					this.currentItem = this.training[0];
 					this.currentIndex = 0;
@@ -209,8 +209,8 @@ export default Vue.extend({
 			});
 		},
 		modeSecond(){
-			rps.modeSecond(this.idVocabulary).then(res => {
-				this.training = res.data.training;
+			rps.getTraining(this.idVocabulary, "translation").then(res => {
+				this.training = res;
 				if (this.training && this.training.length > 0){
 					this.currentItem = this.training[0];
 					this.currentIndex = 0;
@@ -218,8 +218,8 @@ export default Vue.extend({
 			});
 		},
 		modeTrird(){
-			rps.modeTrird(this.idVocabulary).then(res => {
-				this.training = res.data.training;
+			rps.getTraining(this.idVocabulary, "reverse_translation").then(res => {
+				this.training = res;
 				if (this.training && this.training.length > 0){
 					this.currentItem = this.training[0];
 					this.currentIndex = 0;
