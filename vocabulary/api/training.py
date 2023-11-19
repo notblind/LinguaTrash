@@ -5,7 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from vocabulary.models import Words
+from vocabulary.models import Word
 from vocabulary.serializers import (
     WordSerializer,
     WordSerializerForSecondMode,
@@ -16,8 +16,8 @@ from vocabulary.serializers import (
 class TrainingCardApi(GenericAPIView):
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["vocabulary"]
-    queryset = Words.objects.all()
+    filterset_fields = ["vocabulary_id"]
+    queryset = Word.objects.all()
     serializer_class = WordSerializer
 
     def get_serializer_class(self):

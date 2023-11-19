@@ -1,4 +1,5 @@
-import axios, {Method} from 'axios';
+import axios, {Method} from "axios";
+import _ from "lodash";
 
 export default class RPService {
 
@@ -7,11 +8,17 @@ export default class RPService {
 	private _jwtToken: any;
 	private mainUrl: string;
 
+	toSnakeCase(obj: any) {
+		return _.mapKeys(obj, function (value: any, key: any){
+			return _.snakeCase(key);
+		})
+	}
+
 	constructor() {
-		if ('127.0.0.1:8080'.includes(window.location.host) || 'localhost:8080'.includes(window.location.host)){
-			this.mainUrl = 'http://localhost:8000/';
+		if ("127.0.0.1:8080".includes(window.location.host) || "localhost:8080".includes(window.location.host)){
+			this.mainUrl = "http://localhost:8000/";
 		} else {
-			this.mainUrl = 'https://linguatrash.fun/'
+			this.mainUrl = "https://linguatrash.fun/"
 		}
 	}
 
@@ -32,7 +39,7 @@ export default class RPService {
 	sendRequest(url: string, method: string, data: any): Promise<any>{
 		const config = {
 			headers: {
-				'Authorization': 'Bearer ' + this._getJWTToken(),
+				"Authorization": "Bearer " + this._getJWTToken(),
 			}
 		}
 		return axios.post(this.mainUrl + url, {method: method, data: data}, config).catch(function (error) {
@@ -53,7 +60,10 @@ export default class RPService {
 		});
 	}
 
-	async sendRequestNew(url: string, method: Method, data?: any) {
+	async sendRequestNew(url: string, method: Method, data?: any, snakeCase?: boolean) {
+		if (snakeCase) {
+			data = this.toSnakeCase(data)
+		}
 		const config = {
 			method: method,
 			url: this.mainUrl + url,
@@ -88,10 +98,10 @@ export default class RPService {
 
 	_sigup(username: any, password: any): Promise<any>{
 		const bodyFormData = new FormData();
-		bodyFormData.append('username', username);
-		bodyFormData.append('password', password);
-		bodyFormData.append('email', username);
-		return axios.post(this.mainUrl + 'auth/users/', bodyFormData)
+		bodyFormData.append("username", username);
+		bodyFormData.append("password", password);
+		bodyFormData.append("email", username);
+		return axios.post(this.mainUrl + "auth/users/", bodyFormData)
 	}
 
 	signUp(username: any, password: any){
@@ -131,11 +141,11 @@ export default class RPService {
 	}
 
 	async getWords(idVocabulary: number, vocabulary: any) {
-		return await this.sendRequestNew('vocabulary/api/v1/word', "GET", {vocabulary: idVocabulary});
+		return await this.sendRequestNew("vocabulary/api/v1/word", "GET", {vocabulary: idVocabulary});
 	}
 
 	async createWord(word: any) {
-		return await this.sendRequestNew('vocabulary/api/v1/word', "POST", word);
+		return await this.sendRequestNew("vocabulary/api/v1/word", "POST", word, true);
 	}
 
 	async getTraining(idVocabulary: number, mode: string) {
@@ -143,17 +153,15 @@ export default class RPService {
 			vocabulary: idVocabulary,
 			mode: mode,
 		}
-		return await this.sendRequestNew('vocabulary/api/v1/training', "GET", data);
+		return await this.sendRequestNew("vocabulary/api/v1/training", "GET", data);
 	}
 
-	createFeedback(text: any): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary/extra', 'create_feedback', {text: text});
-		return this._data
+	async createFeedback(text: any) {
+		return await this.sendRequestNew("additional/api/v1/feedback", "POST", {text: text});
 	}
 
-	getHolidays(): Promise<any>{
-		this._data = this.sendRequest('api/vocabulary/extra', 'get_holidays', {});
-		return this._data
+	async getHolidays() {
+		return await this.sendRequestNew("additional/api/v1/holiday", "GET");
 	}
 
 }

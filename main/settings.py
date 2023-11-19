@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "djoser",
     "accounts",
     "vocabulary",
+    "additional",
 ]
 
 MIDDLEWARE = [

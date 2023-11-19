@@ -43,7 +43,7 @@ export default Vue.extend({
 	data() {
 		return {
 			newWord: {
-				vocabulary: this.idVocabulary,
+				vocabularyId: this.idVocabulary,
 				word: null,
 				translations: ['', '', '', '', '']
 			}

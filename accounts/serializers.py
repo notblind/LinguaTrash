@@ -4,7 +4,7 @@ from .models import Partner
 
 
 class PartnerSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
+    user_id = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Partner

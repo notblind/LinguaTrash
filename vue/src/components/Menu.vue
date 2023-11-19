@@ -87,7 +87,7 @@ export default Vue.extend({
 			this.partner = res;
 		});
 		rps.getHolidays().then((res) => {
-			this.calendar = res.data;
+			this.calendar = res;
 		});
 	},
 	methods: {

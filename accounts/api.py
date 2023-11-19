@@ -16,4 +16,4 @@ class PartnerAPI(GenericAPIView):
         return Response(serializer.data)
 
     def get_queryset(self):
-        return Partner.objects.get(user=self.request.user.id)
+        return Partner.objects.get(user_id=self.request.user.id)

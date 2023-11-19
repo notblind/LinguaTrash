@@ -1,12 +1,9 @@
-import logging
 import random
 
 from django.db.models import Q
 from rest_framework import serializers
 
-from accounts.models import Partner
-
-from .models import FeedBack, Holiday, Translation, Vocabulary, Words
+from vocabulary.models import Translation, Vocabulary, Word
 
 
 class VocabularySerializer(serializers.ModelSerializer):
@@ -14,20 +11,20 @@ class VocabularySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vocabulary
-        fields = ["name", "like", "partner", "ammount", "id", "create_time"]
+        fields = ["name", "like", "partner_id", "ammount", "id", "create_time"]
         read_only_fields = ["id", "create_time"]
 
     def create(self, validated_data):
         return Vocabulary.objects.create(**validated_data)
 
-    def update(self, vocabulary, validated_data):
-        vocabulary.name = validated_data.get("name", vocabulary.name)
-        vocabulary.like = validated_data.get("like", vocabulary.like)
-        vocabulary.save()
-        return vocabulary
+    def update(self, vocabulary_id, validated_data):
+        vocabulary_id.name = validated_data.get("name", vocabulary_id.name)
+        vocabulary_id.like = validated_data.get("like", vocabulary_id.like)
+        vocabulary_id.save()
+        return vocabulary_id
 
     def _ammount(self, obj):
-        words = Words.objects.filter(vocabulary=obj.id)
+        words = Word.objects.filter(vocabulary_id=obj.id)
         return len(words)
 
 
@@ -37,32 +34,32 @@ class FullVocabularySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vocabulary
-        fields = ["name", "like", "partner", "ammount", "words", "id", "create_time"]
+        fields = ["name", "like", "partner_id", "ammount", "words", "id", "create_time"]
         read_only_fields = ["id", "create_time"]
 
     def create(self, validated_data):
         return Vocabulary.objects.create(**validated_data)
 
     def get_words(self, obj):
-        words = Words.objects.filter(vocabulary=obj.id)
+        words = Word.objects.filter(vocabulary_id=obj.id)
         serializer = WordSerializer(words, many=True)
         return serializer.data
 
-    def update(self, vocabulary, validated_data):
-        vocabulary.name = validated_data.get("name", vocabulary.name)
-        vocabulary.like = validated_data.get("like", vocabulary.like)
-        vocabulary.save()
-        return vocabulary
+    def update(self, vocabulary_id, validated_data):
+        vocabulary_id.name = validated_data.get("name", vocabulary_id.name)
+        vocabulary_id.like = validated_data.get("like", vocabulary_id.like)
+        vocabulary_id.save()
+        return vocabulary_id
 
     def _ammount(self, obj):
-        words = Words.objects.filter(vocabulary=obj.id)
+        words = Word.objects.filter(vocabulary_id=obj.id)
         return len(words)
 
 
 class TranslationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Translation
-        fields = ["id", "translate", "word"]
+        fields = ["id", "translate", "word_id"]
         read_only_fields = ["id"]
 
     def create(self, validated_data):
@@ -73,25 +70,25 @@ class WordSerializer(serializers.ModelSerializer):
     translations = TranslationSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Words
-        fields = ["id", "word", "translations", "vocabulary"]
+        model = Word
+        fields = ["id", "word", "translations", "vocabulary_id"]
         read_only_fields = ["id"]
 
     def create(self, validated_data):
-        return Words.objects.create(**validated_data)
+        return Word.objects.create(**validated_data)
 
 
 class WordSerializerForSecondMode(serializers.ModelSerializer):
     options = serializers.SerializerMethodField("_options", read_only=True)
 
     class Meta:
-        model = Words
-        fields = ["id", "word", "options", "vocabulary"]
+        model = Word
+        fields = ["id", "word", "options", "vocabulary_id"]
         read_only_fields = ["id"]
 
     def _options(self, obj):
         words = sorted(
-            Words.objects.filter(~Q(id=obj.id) & Q(vocabulary=obj.vocabulary.id)),
+            Word.objects.filter(~Q(id=obj.id) & Q(vocabulary_id=obj.vocabulary_id.id)),
             key=lambda x: random.random(),
         )
         index = 3
@@ -102,11 +99,11 @@ class WordSerializerForSecondMode(serializers.ModelSerializer):
         for i in range(0, index):
             word = words[i]
 
-            translations = Translation.objects.filter(word=word.id)
+            translations = Translation.objects.filter(word_id=word.id)
             translation = translations[random.randint(0, len(translations) - 1)]
             options.append({"option": translation.translate, "right": False})
 
-        translations = Translation.objects.filter(word=obj.id)
+        translations = Translation.objects.filter(word_id=obj.id)
         translation = translations[random.randint(0, len(translations) - 1)]
         options.insert(
             random.randint(0, index), {"option": translation.translate, "right": True}
@@ -119,13 +116,13 @@ class WordSerializerForThirdMode(serializers.ModelSerializer):
     word = serializers.SerializerMethodField("_translation", read_only=True)
 
     class Meta:
-        model = Words
-        fields = ["id", "word", "options", "vocabulary"]
+        model = Word
+        fields = ["id", "word", "options", "vocabulary_id"]
         read_only_fields = ["id"]
 
     def _options(self, obj):
         words = sorted(
-            Words.objects.filter(~Q(id=obj.id) & Q(vocabulary=obj.vocabulary.id)),
+            Word.objects.filter(~Q(id=obj.id) & Q(vocabulary_id=obj.vocabulary_id.id)),
             key=lambda x: random.random(),
         )
         index = 3
@@ -139,22 +136,6 @@ class WordSerializerForThirdMode(serializers.ModelSerializer):
         return options
 
     def _translation(self, obj):
-        translations = Translation.objects.filter(word=obj.id)
+        translations = Translation.objects.filter(word_id=obj.id)
         translation = translations[random.randint(0, len(translations) - 1)]
         return translation.translate
-
-
-class FeedBackSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FeedBack
-        fields = ["text", "partner", "create_time"]
-        read_only_fields = ["create_time"]
-
-    def create(self, validated_data):
-        return FeedBack.objects.create(**validated_data)
-
-
-class HolidaySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Holiday
-        fields = ["description"]
