@@ -4,33 +4,9 @@
 			<div class="mat-title">
 				<div class="mat-name">Мои словари</div>
 				<div>
-				<!-- 	<div class="view-mode" v-on:click="boxes=!boxes" v-bind:class="{'view-mode-box': !boxes}">
-						<span></span>
-						<span></span>
-						<span></span>
-						<span></span>
-					</div> -->
 					<div class="button-add" v-on:click="visAdd = false"><font-awesome-icon icon="plus" style="margin-right: 5px;"/>Cловарь</div>
 				</div>
 			</div>
-			<!-- <ul class="list-ul" v-if="!boxes">
-				<li v-for="item in vocabulary" :key="item.id" class="list-item">
-					<div>
-						<div class="list-ul-name">{{item.name}}</div>
-						<div class="list-ul-date">{{item.create_time}}</div>
-					</div>
-					<div class="rightpart-list">
-						<div class="button-add">Тренировка</div>
-						<router-link class="button-add" style="margin-left: 10px;" tag="div"
-						:to="{path: 'words/' + item.id}">Редактировать</router-link>
-						<div class="button-add" style="margin-left: 10px; width: 38px; padding: 0;"
-							v-bind:style="{ color: item.like ? '#376bff' : ''}"
-							v-on:click="clickLike(item)">
-							<font-awesome-icon icon="heart" />
-						</div>
-					</div>
-				</li>
-			</ul> -->
 		</div>
 
 		<div class="loader" v-if="!vocabulary"></div>
@@ -50,15 +26,6 @@
 									v-on:click="clickLike(item)">
 									<font-awesome-icon icon="heart" size="lg"/>
 							</div>
-
-							<!-- <router-link class="view-mode right-flex-box-item" tag="div"
-							:to="{path: 'words/' + item.id}">
-								<span></span>
-								<span></span>
-								<span></span>
-								<span></span>
-							</router-link>
- -->
 						</div>
 						<div class="left-flex-box">
 							<div style="color: #9a9898; font-weight: 600; font-size: 14px; letter-spacing: 0.01px;">{{item.create_time}}</div>
@@ -66,15 +33,11 @@
 						<div class="flex-box-name">
 							<div class="logo-vocab">
 								<div class="logo-ul-name">{{item.name}}</div>
-								<div class="logo-ul-vocab">{{item.ammount}} из 400 слов</div>
+								<div class="logo-ul-vocab">{{item.words.length}} из 400 слов</div>
 							</div>
 						</div>
 						<div class="flex-box-buttons">
 							<div class="button-add" style="margin-bottom: 15px;" v-on:click="train(item)">Начать тренировку</div>
-				<!-- 			<div class="button-add" style="margin-bottom: 15px;"
-								v-on:click="visAddPhrase = false; idVocabulary=item.id">Добавить слово или словосочетание</div> -->
-
-
 						</div>
 					</div>
 
@@ -96,8 +59,6 @@
 				<div class="mat-title" style="padding-bottom: 20px;">
 					<div class="mat-name" style="margin-bottom: 0;">{{vocabularyActive.name}}</div>
 					<div style="display: flex;">
-			<!-- 			<div class="button-add" style="margin-right: 10px;" v-on:click="train(vocabularyActive)">Начать тренировку</div> -->
-
 
 						<div class="button-add" v-on:click="visDeleteVocab = false">
 							<font-awesome-icon icon="trash" />
@@ -144,19 +105,13 @@
 						<div class="list-ul-date">{{item.create_time}}</div>
 					</div>
 					<div style="flex: 30%;">
-						<div class="list-ul-name" style="font-weight: 400">{{item.ammount}} из 400 слов</div>
+						<div class="list-ul-name" style="font-weight: 400">{{item.words.length}} из 400 слов</div>
 					</div>
 					<div class="rightpart-list">
 
 						<div class="button-add" v-on:click="train(item)">Начать тренировку</div>
 						<router-link class="button-add" style="margin-left: 10px;" tag="div"
 						:to="{path: 'words/' + item.id}">
-							<!-- <div class="view-mode right-flex-box-item">
-								<span></span>
-								<span></span>
-								<span></span>
-								<span></span>
-							</div> -->
 							<font-awesome-icon icon="bars" />
 						</router-link>
 
@@ -316,7 +271,7 @@ export default Vue.extend({
 			});
 		},
 		train(item){
-			if (item.ammount > 0){
+			if (item.words?.length > 0){
 				this.vTrainingModal=item
 			} else {
 				this.visError = false;

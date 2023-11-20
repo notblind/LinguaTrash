@@ -11,7 +11,7 @@ class WordListCreateAPI(ListCreateAPIView):
     serializer_class = WordSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["vocabulary_id"]
-    queryset = Word.objects.all()
+    queryset = Word.objects.all().prefetch_related("translations")
 
     def post(self, request, *args, **kwargs):
         res = self.create(request, *args, **kwargs)

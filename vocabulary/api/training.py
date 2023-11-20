@@ -17,8 +17,7 @@ class TrainingCardApi(GenericAPIView):
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["vocabulary_id"]
-    queryset = Word.objects.all()
-    serializer_class = WordSerializer
+    queryset = Word.objects.all().prefetch_related("translations")
 
     def get_serializer_class(self):
         mode = self.request.query_params.get("mode")

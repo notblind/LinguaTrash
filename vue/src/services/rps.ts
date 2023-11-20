@@ -141,7 +141,9 @@ export default class RPService {
 	}
 
 	async getWords(idVocabulary: number, vocabulary: any) {
-		return await this.sendRequestNew("vocabulary/api/v1/word", "GET", {vocabulary: idVocabulary});
+		return await this.sendRequestNew(
+			"vocabulary/api/v1/word", "GET", {vocabularyId: idVocabulary}, true
+		);
 	}
 
 	async createWord(word: any) {
@@ -150,10 +152,10 @@ export default class RPService {
 
 	async getTraining(idVocabulary: number, mode: string) {
 		const data = {
-			vocabulary: idVocabulary,
+			vocabularyId: idVocabulary,
 			mode: mode,
 		}
-		return await this.sendRequestNew("vocabulary/api/v1/training", "GET", data);
+		return await this.sendRequestNew("vocabulary/api/v1/training", "GET", data, true);
 	}
 
 	async createFeedback(text: any) {

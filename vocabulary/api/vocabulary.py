@@ -18,7 +18,9 @@ class VocabularyListCreateAPI(ListCreateAPIView):
 
     def get_queryset(self):
         partner = Partner.objects.get(user_id=self.request.user.id)
-        return Vocabulary.objects.filter(partner_id=partner.id)
+        return Vocabulary.objects.filter(partner_id=partner.id).prefetch_related(
+            "words"
+        )
 
     def post(self, request, *args, **kwargs):
         partner = Partner.objects.get(user_id=self.request.user.id)

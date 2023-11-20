@@ -4,7 +4,7 @@
 		<div class="mat-modal">
 			<div class="modal-title" style="flex-wrap: wrap; position: relative;">
 				{{vocabulary.name}}: Тренировка
-				<span style="width: 100%; font-size: 14px; position: absolute; top: 40px;">{{vocabulary.ammount}} из 400 слов</span>
+				<span style="width: 100%; font-size: 14px; position: absolute; top: 40px;">{{vocabulary.words.length}} из 400 слов</span>
 			</div>
 			<div class="modal-form" style="margin-top: 20px;">
 
