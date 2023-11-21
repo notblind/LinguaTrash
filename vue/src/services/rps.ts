@@ -116,7 +116,7 @@ export default class RPService {
 	}
 
 	async getMe() {
-		return await this.sendRequestNew("account/api/v1/partner", "GET");
+		return await this.sendRequestNew("account/api/v1/user", "GET");
 	}
 
 	async getListVocabulary() {

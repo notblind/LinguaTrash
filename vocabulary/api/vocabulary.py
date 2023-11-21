@@ -4,7 +4,6 @@ from rest_framework.generics import (
 )
 from rest_framework.permissions import IsAuthenticated
 
-from accounts.models import Partner
 from vocabulary.models import Vocabulary
 from vocabulary.serializers import (
     FullVocabularySerializer,
@@ -17,15 +16,9 @@ class VocabularyListCreateAPI(ListCreateAPIView):
     serializer_class = FullVocabularySerializer
 
     def get_queryset(self):
-        partner = Partner.objects.get(user_id=self.request.user.id)
-        return Vocabulary.objects.filter(partner_id=partner.id).prefetch_related(
-            "words"
-        )
-
-    def post(self, request, *args, **kwargs):
-        partner = Partner.objects.get(user_id=self.request.user.id)
-        request.data["partner_id"] = partner.id
-        return self.create(request, *args, **kwargs)
+        return Vocabulary.objects.filter(
+            create_id=self.request.user.id
+        ).prefetch_related("words")
 
 
 class VocabularyAPI(RetrieveUpdateDestroyAPIView):
@@ -33,5 +26,4 @@ class VocabularyAPI(RetrieveUpdateDestroyAPIView):
     serializer_class = VocabularySerializer
 
     def get_queryset(self):
-        partner = Partner.objects.get(user_id=self.request.user.id)
-        return Vocabulary.objects.filter(partner_id=partner.id)
+        return Vocabulary.objects.filter(create_id=self.request.user.id)

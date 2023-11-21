@@ -1,19 +1,19 @@
+from django.contrib.auth.models import User
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from accounts.models import Partner
-from accounts.serializers import PartnerSerializer
+from accounts.serializers import UserSerializer
 
 
-class PartnerAPI(GenericAPIView):
+class UserAPI(GenericAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = PartnerSerializer
-    queryset = Partner.objects.all()
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return User.objects.get(pk=user.pk)
 
     def get(self, request, *args, **kwargs):
         serializer = self.get_serializer(self.get_queryset())
         return Response(serializer.data)
-
-    def get_queryset(self):
-        return Partner.objects.get(user_id=self.request.user.id)

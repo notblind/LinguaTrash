@@ -1,25 +1,20 @@
 from django.db import models
 
+from accounts.models import AccountMixin
 
-class FeedBack(models.Model):
+
+class FeedBack(AccountMixin):
     text = models.TextField()
-    partner_id = models.ForeignKey(
-        "accounts.Partner", related_name="partner_u", on_delete=models.CASCADE
-    )
-    create_time = models.DateField(auto_now_add=True)
 
 
-class DayOfWeek(models.Model):
+class DayOfWeek(AccountMixin):
     day_text = models.TextField()
 
     def __str__(self):
         return self.day_text
 
-    class Meta:
-        db_table = "dayofweek"
 
-
-class Holiday(models.Model):
+class Holiday(AccountMixin):
     day = models.ForeignKey(
         "DayOfWeek", related_name="dayofweek", on_delete=models.CASCADE
     )
@@ -27,6 +22,3 @@ class Holiday(models.Model):
 
     def __str__(self):
         return self.description
-
-    class Meta:
-        db_table = "holiday"

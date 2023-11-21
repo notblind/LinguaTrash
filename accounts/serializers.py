@@ -1,11 +1,8 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Partner
 
-
-class PartnerSerializer(serializers.ModelSerializer):
-    user_id = serializers.StringRelatedField(read_only=True)
-
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Partner
-        fields = "__all__"
+        model = User
+        fields = ["username", "email", "date_joined"]

@@ -1,7 +1,7 @@
-from django.urls import include, path
+from django.urls import path
 
-from accounts.api import PartnerAPI
+from accounts.api import UserAPI
 
 urlpatterns = [
-    path("api/v1/partner", PartnerAPI.as_view(), name="partner"),
+    path("api/v1/user", UserAPI.as_view(), name="api_user"),
 ]

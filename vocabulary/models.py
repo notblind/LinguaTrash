@@ -1,13 +1,10 @@
 from django.db import models
 
+from accounts.models import AccountMixin
 
-class Vocabulary(models.Model):
-    partner_id = models.ForeignKey(
-        "accounts.Partner", related_name="vocabularies", on_delete=models.CASCADE
-    )
+
+class Vocabulary(AccountMixin):
     name = models.CharField(max_length=2048)
-    create_time = models.DateField(auto_now_add=True)
-    write_time = models.DateField(auto_now=True)
     like = models.BooleanField(default=False)
 
     class Meta:
@@ -17,7 +14,7 @@ class Vocabulary(models.Model):
         return self.name
 
 
-class Word(models.Model):
+class Word(AccountMixin):
     vocabulary_id = models.ForeignKey(
         "Vocabulary", related_name="words", on_delete=models.CASCADE
     )
@@ -30,7 +27,7 @@ class Word(models.Model):
         return self.word
 
 
-class Translation(models.Model):
+class Translation(AccountMixin):
     translate = models.CharField(max_length=2048)
     word_id = models.ForeignKey(
         "Word", related_name="translations", on_delete=models.CASCADE

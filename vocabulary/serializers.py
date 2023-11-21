@@ -11,8 +11,8 @@ class VocabularySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vocabulary
-        fields = ["name", "like", "partner_id", "ammount", "id", "create_time"]
-        read_only_fields = ["id", "create_time"]
+        fields = ["name", "like", "create_id", "ammount", "id", "create_date"]
+        read_only_fields = ["id", "create_date"]
 
     def create(self, validated_data):
         return Vocabulary.objects.create(**validated_data)
@@ -54,8 +54,8 @@ class FullVocabularySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vocabulary
-        fields = ["name", "like", "partner_id", "words", "id", "create_time"]
-        read_only_fields = ["id", "create_time"]
+        fields = ["name", "like", "create_id", "words", "id", "create_date"]
+        read_only_fields = ["id", "create_date"]
 
     def create(self, validated_data):
         return Vocabulary.objects.create(**validated_data)
