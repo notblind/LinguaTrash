@@ -5,6 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from vocabulary.mixins import FilterQByCreatedMixin
 from vocabulary.models import Word
 from vocabulary.serializers import (
     WordSerializer,
@@ -13,7 +14,7 @@ from vocabulary.serializers import (
 )
 
 
-class TrainingCardApi(GenericAPIView):
+class TrainingCardApi(FilterQByCreatedMixin, GenericAPIView):
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["vocabulary_id"]

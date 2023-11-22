@@ -4,6 +4,7 @@ from rest_framework.generics import (
 )
 from rest_framework.permissions import IsAuthenticated
 
+from vocabulary.mixins import FilterQByCreatedMixin
 from vocabulary.models import Vocabulary
 from vocabulary.serializers import (
     FullVocabularySerializer,
@@ -11,19 +12,13 @@ from vocabulary.serializers import (
 )
 
 
-class VocabularyListCreateAPI(ListCreateAPIView):
+class VocabularyListCreateAPI(FilterQByCreatedMixin, ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = FullVocabularySerializer
-
-    def get_queryset(self):
-        return Vocabulary.objects.filter(
-            create_id=self.request.user.id
-        ).prefetch_related("words")
+    queryset = Vocabulary.objects.all().prefetch_related("words")
 
 
-class VocabularyAPI(RetrieveUpdateDestroyAPIView):
+class VocabularyAPI(FilterQByCreatedMixin, RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = VocabularySerializer
-
-    def get_queryset(self):
-        return Vocabulary.objects.filter(create_id=self.request.user.id)
+    queryset = Vocabulary.objects.all()

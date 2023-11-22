@@ -2,11 +2,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 
+from vocabulary.mixins import FilterQByCreatedMixin
 from vocabulary.models import Word
 from vocabulary.serializers import TranslationSerializer, WordSerializer
 
 
-class WordListCreateAPI(ListCreateAPIView):
+class WordListCreateAPI(FilterQByCreatedMixin, ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = WordSerializer
     filter_backends = [DjangoFilterBackend]
