@@ -15,8 +15,11 @@ class DayOfWeek(AccountMixin):
 
 
 class Holiday(AccountMixin):
-    day = models.ForeignKey(
-        "DayOfWeek", related_name="dayofweek", on_delete=models.CASCADE
+    day_id = models.ForeignKey(
+        "DayOfWeek",
+        related_name="dayofweek",
+        on_delete=models.CASCADE,
+        db_column="day_id",
     )
     description = models.CharField(max_length=2048)
 

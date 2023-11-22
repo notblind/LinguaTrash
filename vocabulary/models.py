@@ -16,7 +16,10 @@ class Vocabulary(AccountMixin):
 
 class Word(AccountMixin):
     vocabulary_id = models.ForeignKey(
-        "Vocabulary", related_name="words", on_delete=models.CASCADE
+        "Vocabulary",
+        related_name="words",
+        on_delete=models.CASCADE,
+        db_column="vocabulary_id",
     )
     word = models.CharField(max_length=2048)
 
@@ -30,7 +33,10 @@ class Word(AccountMixin):
 class Translation(AccountMixin):
     translate = models.CharField(max_length=2048)
     word_id = models.ForeignKey(
-        "Word", related_name="translations", on_delete=models.CASCADE
+        "Word",
+        related_name="translations",
+        on_delete=models.CASCADE,
+        db_column="word_id",
     )
 
     def __str__(self):

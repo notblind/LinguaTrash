@@ -11,6 +11,7 @@ class AccountMixin(models.Model):
         on_delete=models.CASCADE,
         default=None,
         related_name="created_%(class)s",
+        db_column="create_id",
     )
     write_id = models.ForeignKey(
         User,
@@ -19,6 +20,7 @@ class AccountMixin(models.Model):
         on_delete=models.CASCADE,
         default=None,
         related_name="modified_%(class)s",
+        db_column="write_id",
     )
     create_date = models.DateField(auto_now_add=True)
     write_date = models.DateField(auto_now=True)
