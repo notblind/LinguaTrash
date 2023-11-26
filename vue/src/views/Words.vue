@@ -7,13 +7,14 @@
 			<div class="mat-title">
 				<div class="mat-name">{{vocabulary.name}}</div>
 				<div style="display: flex;">
-					<div class="button-add button-add-mobile" v-on:click="visDeleteVocab = false">
+					<div class="button-add button-add-mobile" v-on:click="visDeleteVocab = false" v-if="partner">
 						<font-awesome-icon icon="trash" />
 					</div>
 				</div>
 			</div>
 			<ul class="list-ul">
 				<div class="list-item add-vocab-box"
+          v-if="partner"
 					v-on:mouseover="hover2=false" style="height: 70px; min-height: 70px;     border-bottom: solid 1px #e6e6e6;"
 					v-on:mouseleave="hover2=true" v-on:click="visAddPhrase = false">
 					<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s"
@@ -85,10 +86,14 @@ export default Vue.extend({
 			visDeleteVocab: Boolean,
 			vocabulary: null,
 			words: null,
+      partner: null,
 			newWords: []
 		};
 	},
 	created() {
+    rps.getMe().then((res) => {
+			this.partner = res;
+		});
 		rps.getVocabulary(this.idVocabulary).then(res => {
 			this.vocabulary = res;
 		});

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="back-modal"></div>
+		<div class="back-modal" v-on:click="close()"></div>
 		<div class="mat-modal big-modal">
 			<div class="modal-title">
 				Добавить cловосочетание

@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="calendar" v-if="calendar">
+        <div class="calendar" v-if="calendar && calendar.holidays">
           <div class="calendar-date">
             Праздники - {{calendar.now}}
           </div>

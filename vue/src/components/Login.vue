@@ -1,6 +1,6 @@
 <template>
 	<div>
-    <div class="back-modal"></div>
+    <div class="back-modal" v-on:click="close()"></div>
 		<div class="mat-modal big-modal login-center" v-bind:class="{'reg-log': !registration}">
 			<form @submit.prevent="login" class="modal-form" v-if="registration">
 				<div class="login-logo">

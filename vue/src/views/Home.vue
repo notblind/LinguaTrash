@@ -3,7 +3,7 @@
 		<div class="mat-div">
 			<div class="mat-title">
 				<div class="mat-name">Мои словари</div>
-				<div>
+				<div v-if="partner">
 					<div class="button-add" v-on:click="visAdd = false"><font-awesome-icon icon="plus" style="margin-right: 5px;"/>Cловарь</div>
 				</div>
 			</div>
@@ -22,6 +22,7 @@
 								<font-awesome-icon icon="bars" size="lg"/>
 							</router-link>
 							<div class="right-flex-box-item"
+                  v-if="partner"
 									v-bind:style="{ color: item.like ? '#376bff' : ''}"
 									v-on:click="clickLike(item)">
 									<font-awesome-icon icon="heart" size="lg"/>
@@ -42,6 +43,7 @@
 					</div>
 
 					<div class="flex-box add-vocab-box"
+            v-if="partner"
 						v-on:mouseover="hover=false"
 						v-on:mouseleave="hover=true" v-on:click="visAdd = false">
 						<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s"
@@ -60,7 +62,7 @@
 					<div class="mat-name" style="margin-bottom: 0;">{{vocabularyActive.name}}</div>
 					<div style="display: flex;">
 
-						<div class="button-add" v-on:click="visDeleteVocab = false">
+						<div class="button-add" v-on:click="visDeleteVocab = false" v-if="partner">
 							<font-awesome-icon icon="trash" />
 						</div>
 					</div>
@@ -68,6 +70,7 @@
 				<ul class="list-ul list-item-over scroll" v-bind:style="{ 'max-height': vocabulary.length==1 ? '340px' : '450px'}">
 
 					<div class="list-item add-vocab-box"
+            v-if="partner"
 						v-on:mouseover="hover2=false" style="height: 70px; min-height: 70px;     border-bottom: solid 1px #e6e6e6;"
 						v-on:mouseleave="hover2=true" v-on:click="visAddPhrase = false; idVocabulary=vocabularyActive.id">
 						<div  style="background: #e6e6e6; position: absolute; width: 100%; height: 100%; transition: 0.5s"
@@ -117,6 +120,7 @@
 
 
 						<div class="button-add" style="margin-left: 10px; width: 38px; padding: 0;"
+              v-if="partner"
 							v-bind:style="{ color: item.like ? '#376bff' : ''}"
 							v-on:click="clickLike(item)">
 							<font-awesome-icon icon="heart" />
@@ -126,7 +130,7 @@
 			</ul>
 		</div>
 
-		<div class="back-modal" v-if="!visAdd"></div>
+		<div class="back-modal" v-if="!visAdd" v-on:click="visAdd = true"></div>
 		<div class="mat-modal" v-if="!visAdd">
 			<div class="modal-title">
 				Добавить Словарь
@@ -211,12 +215,16 @@ export default Vue.extend({
 			width: 0,
 			vocab: {
 				'name': null
-			}
+			},
+      partner: null,
 		};
 	},
 	created() {
 		this.updateWidth();
 		window.addEventListener('resize', this.updateWidth);
+    rps.getMe().then((res) => {
+			this.partner = res;
+		});
 		rps.getListVocabulary().then(res => {
 			this.vocabulary = res;
 			if (this.vocabulary && this.vocabulary.length > 0){
