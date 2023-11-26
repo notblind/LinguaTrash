@@ -1,6 +1,7 @@
 <template>
-	<div class="login-align">
-		<div class="login-center" v-bind:class="{'reg-log': !registration}">
+	<div>
+    <div class="back-modal"></div>
+		<div class="mat-modal big-modal login-center" v-bind:class="{'reg-log': !registration}">
 			<form @submit.prevent="login" class="modal-form" v-if="registration">
 				<div class="login-logo">
 					<span class="logo-1">Lingua</span><span class="logo-2">Trash</span>
@@ -11,14 +12,15 @@
 				<div class="login-text-error">
 					<span v-if="error">{{error}}</span>
 				</div>
-				<div class="modal-form-btns">
+				<div class="login-modal-form-btns">
 					<button class="button-add" type="submit" style="width: 100%; margin-top: 0; height: 40px;">Войти</button>
-					<div class="button-add" v-on:click="back()" style="height: 38px"><span style="font-weight: 400; margin-right: 3px;">Нет аккаунта?</span> Создайте его</div>
+					<div class="button-add" v-on:click="back()" style="height: 40px"><span style="font-weight: 400; margin-right: 3px;">Нет аккаунта?</span> Создайте его</div>
+
+          <button class="button-add" v-on:click="close()" style="width: 100%; height: 40px;">Назад</button>
 				</div>
 			</form>
 
-			<form @submit.prevent="signup" class="modal-form" v-if="!registration"
-				style="width: 100%;">
+			<form @submit.prevent="signup" class="modal-form" v-if="!registration">
 				<div class="login-logo">
 					<span class="logo-1">Lingua</span><span class="logo-2">Trash</span>
 				</div>
@@ -30,13 +32,13 @@
 					<span v-for="error in errorPassword" :key="error" >{{error}}</span>
 					<span v-for="error in errorEmail" :key="error" >{{error}}</span>
 				</div>
-				<div class="modal-form-btns">
+				<div class="login-modal-form-btns">
 					<button class="button-add" type="submit" style="width: 100%; margin-top: 0; height: 40px;">Создать аккаунт и войти</button>
-					<div class="button-add" v-on:click="back()" style="height: 38px">Назад</div>
+					<div class="button-add" v-on:click="back()" style="height: 40px">Назад</div>
 				</div>
 			</form>
 
-			<div class="login-text" v-if="registration">
+			<div class="login-text">
 				<div class="login-text-style">
 					<span>Добро пожаловать!</span> <br>
 					Вы случайно наткнулись на платформу для запоминания иностранных слов <br><br>
@@ -49,8 +51,7 @@
 
 <script>
 import Vue from 'vue';
-import RPService from '../../services/rps';
-import router from  '../../router/index.ts'
+import RPService from '@/services/rps';
 const rps = new RPService();
 
 export default Vue.extend({
@@ -71,6 +72,9 @@ export default Vue.extend({
 		};
 	},
 	methods: {
+    close(){
+			this.$emit('close');
+		},
 		back(){
 			this.user.username = null;
 			this.user.password = null;

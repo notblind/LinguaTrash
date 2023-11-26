@@ -34,7 +34,7 @@
 
 <script>
 import Vue from 'vue';
-import RPService from '../services/rps';
+import RPService from '@/services/rps';
 const rps = new RPService();
 
 export default Vue.extend({

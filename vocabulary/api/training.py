@@ -2,7 +2,7 @@ import random
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 from vocabulary.mixins import FilterQByCreatedMixin
@@ -15,7 +15,7 @@ from vocabulary.serializers import (
 
 
 class TrainingCardApi(FilterQByCreatedMixin, GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["vocabulary_id"]
     queryset = Word.objects.all().prefetch_related("translations")

@@ -35,7 +35,6 @@ export default Vue.extend({
 		logOut(){
 			rps.logOut().then(() => {
 				window.location.replace("http://localhost:8080/login");
-				// router.push({ name: 'login'});
 			});
 		}
 	}

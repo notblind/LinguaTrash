@@ -34,7 +34,7 @@
 
 <script>
 import Vue from 'vue';
-import RPService from '../services/rps';
+import RPService from '@/services/rps';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'

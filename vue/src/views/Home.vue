@@ -193,7 +193,7 @@ export default Vue.extend({
 	name: 'Home',
 	components: {
 		NewWord,
-		TrainingModal
+		TrainingModal,
 	},
 	data() {
 		return {

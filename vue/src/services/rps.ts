@@ -22,7 +22,6 @@ export default class RPService {
 		}
 	}
 
-
 	_getJWTToken(){
 		if (!this._jwtToken){
 			const results = document.cookie.match ( '(^|;) ?' + 'jwt' + '=([^;]*)(;|$)' );
@@ -36,31 +35,7 @@ export default class RPService {
 		document.cookie = "jwt=; expires=" + cookieDate.toUTCString();
 	}
 
-	sendRequest(url: string, method: string, data: any): Promise<any>{
-		const config = {
-			headers: {
-				"Authorization": "Bearer " + this._getJWTToken(),
-			}
-		}
-		return axios.post(this.mainUrl + url, {method: method, data: data}, config).catch(function (error) {
-			if (error.response) {
-				// Request made and server responded
-				if (error.response.status == '401'){
-					// TODO: сделать проверку на url  и только тогда редиректить
-					window.location.reload(true);
-				}
-			} else if (error.request) {
-				// The request was made but no response was received
-				console.log(error.request);
-			} else {
-				// Something happened in setting up the request that triggered an Error
-				console.log('Error', error.message);
-			}
-
-		});
-	}
-
-	async sendRequestNew(url: string, method: Method, data?: any, snakeCase?: boolean) {
+	async sendRequest(url: string, method: Method, data?: any, snakeCase?: boolean) {
 		if (snakeCase) {
 			data = this.toSnakeCase(data)
 		}
@@ -68,9 +43,9 @@ export default class RPService {
 			method: method,
 			url: this.mainUrl + url,
 			data: data,
-			headers: {
+			headers: this._getJWTToken() ? {
 				'Authorization': 'Bearer ' + this._getJWTToken(),
-			},
+			} : {},
 			params: method === "GET" ? data : {},
 		}
 		const res = await axios(config)
@@ -116,38 +91,38 @@ export default class RPService {
 	}
 
 	async getMe() {
-		return await this.sendRequestNew("account/api/v1/user", "GET");
+		return await this.sendRequest("account/api/v1/user", "GET");
 	}
 
 	async getListVocabulary() {
-		return await this.sendRequestNew("vocabulary/api/v1/vocabulary", "GET");
+		return await this.sendRequest("vocabulary/api/v1/vocabulary", "GET");
 	}
 
 	async createVocabulary(vocabulary: any): Promise<any>{
-		this._data = this.sendRequestNew("vocabulary/api/v1/vocabulary", "POST", vocabulary);
+		this._data = this.sendRequest("vocabulary/api/v1/vocabulary", "POST", vocabulary);
 		return this._data
 	}
 
 	async getVocabulary(idVocabulary: number) {
-		return await this.sendRequestNew(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "GET");
+		return await this.sendRequest(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "GET");
 	}
 
 	async deleteVocabulary(idVocabulary: number) {
-		return await this.sendRequestNew(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "DELETE");
+		return await this.sendRequest(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "DELETE");
 	}
 
 	async editVocabulary(idVocabulary: number, vocabulary: any) {
-		return await this.sendRequestNew(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "PATCH", vocabulary);
+		return await this.sendRequest(`vocabulary/api/v1/vocabulary/${idVocabulary}`, "PATCH", vocabulary);
 	}
 
 	async getWords(idVocabulary: number, vocabulary: any) {
-		return await this.sendRequestNew(
+		return await this.sendRequest(
 			"vocabulary/api/v1/word", "GET", {vocabularyId: idVocabulary}, true
 		);
 	}
 
 	async createWord(word: any) {
-		return await this.sendRequestNew("vocabulary/api/v1/word", "POST", word, true);
+		return await this.sendRequest("vocabulary/api/v1/word", "POST", word, true);
 	}
 
 	async getTraining(idVocabulary: number, mode: string) {
@@ -155,15 +130,15 @@ export default class RPService {
 			vocabularyId: idVocabulary,
 			mode: mode,
 		}
-		return await this.sendRequestNew("vocabulary/api/v1/training", "GET", data, true);
+		return await this.sendRequest("vocabulary/api/v1/training", "GET", data, true);
 	}
 
 	async createFeedback(text: any) {
-		return await this.sendRequestNew("additional/api/v1/feedback", "POST", {text: text});
+		return await this.sendRequest("additional/api/v1/feedback", "POST", {text: text});
 	}
 
 	async getHolidays() {
-		return await this.sendRequestNew("additional/api/v1/holiday", "GET");
+		return await this.sendRequest("additional/api/v1/holiday", "GET");
 	}
 
 }

@@ -64,7 +64,7 @@ body{
 }
 .container{
 	width: calc(100% - 70px);
-	max-width: 1800px;
+	max-width: 2000px;
 	margin: 0 auto;
 
 	display: flex;
@@ -476,25 +476,10 @@ input:hover:-ms-input-placeholder {
 .add-words-translate input{
 	margin-bottom: 10px;
 }
-.login-align{
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
-	background: radial-gradient(circle, rgba(63,199,251,1) 0%, rgba(97,70,252,1) 100%);
-}
 .login-center{
-	width: 600px;
 	background: white;
 	display: flex;
-
-	border: solid 1px #e6e6e6;
-	border-radius: 2px;
-	box-shadow: 0px 8px 14px rgba(0, 0, 0, .1);
-}
-.reg-log{
-	width: 315px;
+	padding: 0;
 }
 .login-center .modal-form{
 	width: 50%;
@@ -529,7 +514,7 @@ input:hover:-ms-input-placeholder {
 	margin-top: 20px;
 	font-size: 16px;
 }
-.login-center .modal-form-btns{
+.login-center .login-modal-form-btns{
 	width: 100%;
 }
 .login-center .button-add{

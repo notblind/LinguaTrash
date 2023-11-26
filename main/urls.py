@@ -22,5 +22,5 @@ urlpatterns = [
     path("additional/api/v1/", include("additional.urls")),
     path("auth/", include("djoser.urls")),
     path("auth/", include("djoser.urls.jwt")),
-    path("account/", include("accounts.urls")),
+    path("account/api/v1/", include("accounts.urls")),
 ]
