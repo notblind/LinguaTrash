@@ -15,4 +15,4 @@ class FeedBackSerializer(serializers.ModelSerializer):
 class HolidaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Holiday
-        fields = ["description"]
+        fields = ["description", "day"]
