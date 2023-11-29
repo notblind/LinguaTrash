@@ -12,9 +12,9 @@ jobs:
       postgres:
         image: postgres
         env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: user
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test
-          POSTGRES_USER: test_user
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -30,8 +30,8 @@ jobs:
       - name: Tests
         run: python manage.py test
         env:
-          DB_NAME: test
-          DB_USER: test_user
-          DB_PASSWORD: postgres
+          DB_NAME: test_db
+          DB_USER: user
+          DB_PASS: postgres
           DB_PORT: 5432
           DB_HOST: 127.0.0.1
