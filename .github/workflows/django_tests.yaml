@@ -13,9 +13,12 @@ jobs:
         image: postgres
         env:
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DATABASE: test
+          POSTGRES_DB: test
           POSTGRES_USER: test_user
-        ports: [ "5432:5432" ]
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
 
     steps:
       - uses: actions/checkout@main
@@ -31,4 +34,4 @@ jobs:
           DB_USER: test_user
           DB_PASSWORD: postgres
           DB_PORT: 5432
-          DB_HOST: localhost
+          DB_HOST: 127.0.0.1
