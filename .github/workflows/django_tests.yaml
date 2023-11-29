@@ -2,8 +2,7 @@ name: Django Tests
 
 on:
   push:
-    branches:
-      - master
+    branches: [main]
 
 jobs:
   run_tests:
