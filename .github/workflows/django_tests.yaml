@@ -30,6 +30,7 @@ jobs:
       - name: Tests
         run: python manage.py test
         env:
+          DEBUG: False
           SECRET_KEY: super_secret_key
           DB_NAME: test_db
           DB_USER: user

@@ -1,0 +1,53 @@
+version: '3.9'
+
+networks:
+  net_nginx:
+    driver: bridge
+  net_db:
+    driver: bridge
+
+services:
+  db:
+    container_name: ling-postgres
+    image: postgres:15
+    restart: always
+    expose:
+      - 5432
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    networks:
+      - net_db
+
+  django:
+    container_name: ling-django
+    build: .
+    command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app/LinguaTrash
+    environment:
+      - PROD_HOST_NAME
+    networks:
+      - net_db
+      - net_nginx
+    depends_on:
+      - db
+
+
+  nginx:
+    container_name: ling-nginx
+    image: nginx:1.24
+    ports:
+      - 8000:80
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./static:/app/LinguaTrash/static
+      - ./media:/app/LinguaTrash/media
+      - ./vue/dist:/app/LinguaTrash
+    networks:
+      - net_nginx
+    depends_on:
+      - django

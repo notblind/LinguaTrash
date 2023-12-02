@@ -12,7 +12,7 @@ import sys
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "main.settings")
 sys.path.append("/root/loco/LinguaTrash/loco")
 sys.path.append("/root/loco/LinguaTrash")
 
