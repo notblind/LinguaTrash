@@ -24,7 +24,8 @@ services:
 
   django:
     container_name: ling-django
-    build: .
+    build:
+      dockerfile: deploy/Dockerfile-Django
     command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app/LinguaTrash
@@ -39,14 +40,14 @@ services:
 
   nginx:
     container_name: ling-nginx
-    image: nginx:1.24
+    build:
+      dockerfile: deploy/Dockerfile-Nginx
     ports:
       - 8000:80
     volumes:
-      - ./config/nginx:/etc/nginx/conf.d
-      - ./static:/app/LinguaTrash/static
-      - ./media:/app/LinguaTrash/media
-      - ./vue/dist:/app/LinguaTrash
+      - ./deploy/nginx:/etc/nginx/conf.d
+      - ./deploy/static:/app/LinguaTrash/static
+      - ./deploy/media:/app/LinguaTrash/media
     networks:
       - net_nginx
     depends_on:
