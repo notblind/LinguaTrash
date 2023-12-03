@@ -48,6 +48,8 @@ jobs:
       - uses: actions/checkout@main
       - name: Log in to Docker Hub
         run: echo $TOKEN | docker login -u $USERNAME --password-stdin
+      - name: Create directories
+        run: mkdir django && mkdir nginx
       - name: Build Django image
         run: docker build -t $USERNAME/$NAME_DJANGO:${GITHUB_REF:11} -f ./deploy/Dockerfile-Django ./django
       - name: Push Django image to Docker Hub
