@@ -8,7 +8,7 @@ networks:
 
 services:
   db:
-    container_name: prod-postgres
+    container_name: ling-postgres
     image: postgres:15
     restart: always
     expose:
@@ -23,7 +23,7 @@ services:
       - net_db
 
   django:
-    container_name: prod-django
+    container_name: ling-django
     image: ${DOCKER_USERNAME}/${DOCKER_NAME_DJANGO}:main
     command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
     networks:
@@ -33,7 +33,7 @@ services:
       - db
 
   nginx:
-    container_name: prod-nginx
+    container_name: ling-nginx
     image: ${DOCKER_USERNAME}/${DOCKER_NAME_NGINX}:main
     ports:
       - "8000:80"
