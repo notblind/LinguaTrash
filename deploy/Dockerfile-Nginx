@@ -1,11 +1,10 @@
 FROM node:latest as build-stage
+ENV NODE_OPTIONS=--openssl-legacy-provider
 WORKDIR /app/LinguaTrash
 COPY ./vue/package*.json ./
 RUN npm ci
 COPY ./vue .
-RUN ls
 RUN npm run build
-RUN ls
 
 
 FROM nginx:1.24 as production-stage
