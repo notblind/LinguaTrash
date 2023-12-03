@@ -8,13 +8,13 @@ networks:
 
 services:
   db:
-    container_name: ling-postgres
+    container_name: prod-postgres
     image: postgres:15
     restart: always
     expose:
       - 5432
-    ports:
-      - "5431:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
@@ -23,32 +23,31 @@ services:
       - net_db
 
   django:
-    container_name: ling-django
-    build:
-      dockerfile: deploy/Dockerfile-Django
+    container_name: prod-django
+    image: ${DOCKER_USERNAME}/${DOCKER_NAME_DJANGO}:main
     command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - .:/app/LinguaTrash
-    environment:
-      - PROD_HOST_NAME
     networks:
       - net_db
       - net_nginx
     depends_on:
       - db
 
-
   nginx:
-    container_name: ling-nginx
-    build:
-      dockerfile: deploy/Dockerfile-Nginx
+    container_name: prod-nginx
+    image: ${DOCKER_USERNAME}/${DOCKER_NAME_NGINX}:main
     ports:
-      - 8000:80
+      - "8000:80"
     volumes:
       - ./deploy/nginx:/etc/nginx/conf.d
-      - ./deploy/static:/app/LinguaTrash/static
-      - ./deploy/media:/app/LinguaTrash/media
+      - static:/app/LinguaTrash/static
+      - media:/app/LinguaTrash/media
     networks:
       - net_nginx
     depends_on:
       - django
+
+
+volumes:
+  pg_data:
+  static:
+  media:
