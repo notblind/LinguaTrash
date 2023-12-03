@@ -16,11 +16,11 @@ export default class RPService {
 
 	constructor() {
 		this.mainUrl = "http://localhost:8000/"
-		// if ("127.0.0.1:8080".includes(window.location.host) || "localhost:8080".includes(window.location.host)){
-		// 	this.mainUrl = "http://localhost:8000/";
-		// } else {
-		// 	this.mainUrl = "https://linguatrash.fun/"
-		// }
+		if ("127.0.0.1:8080".includes(window.location.host) || "localhost:8080".includes(window.location.host)){
+			this.mainUrl = "http://localhost:8000/";
+		} else {
+			this.mainUrl = process.env.API_URL
+		}
 	}
 
 	_getJWTToken(){
