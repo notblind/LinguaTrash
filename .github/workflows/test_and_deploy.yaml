@@ -62,8 +62,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: docker_hub
     env:
-      SERVER_HOST: ${{ secrets.DOCKER_USERNAME }}
-      SERVER_USERNAME: ${{ secrets.DOCKER_NAME_DJANGO }}
+      SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+      SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
     steps:
       - uses: actions/checkout@main
       - name: Copy docker-compose-deploy.yml
@@ -71,6 +72,7 @@ jobs:
         with:
           host: $SERVER_HOST
           username: $SERVER_USERNAME
+          password: $SERVER_PASSWORD
           source: "./deploy/docker-compose-deploy.yml"
           target: "LinguaTrash"
       - name: Docker reload
@@ -78,6 +80,7 @@ jobs:
         with:
           host: $SERVER_HOST
           username: $SERVER_USERNAME
+          password: $SERVER_PASSWORD
           script: |
             cd LinguaTrash
             sudo docker compose -f docker-compose.production.yml pull
