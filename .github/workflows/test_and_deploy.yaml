@@ -82,3 +82,4 @@ jobs:
             docker compose -f ./deploy/docker-compose-deploy.yml --env-file=.env pull
             docker compose -f ./deploy/docker-compose-deploy.yml --env-file=.env down
             docker compose -f ./deploy/docker-compose-deploy.yml --env-file=.env up -d
+            docker compose -f ./deploy/docker-compose-deploy.yml --env-file=.env exec django migrate
