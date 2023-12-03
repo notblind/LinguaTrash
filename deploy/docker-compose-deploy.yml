@@ -26,6 +26,8 @@ services:
     container_name: ling-django
     image: ${DOCKER_USERNAME}/${DOCKER_NAME_DJANGO}:main
     command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./env:/app/LinguaTrash
     networks:
       - net_db
       - net_nginx
