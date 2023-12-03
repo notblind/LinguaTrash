@@ -71,7 +71,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           source: "./deploy/docker-compose-deploy.yml"
           target: "LinguaTrash"
-      - name: Docker reload
+      - name: Docker pull & reload
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -82,4 +82,4 @@ jobs:
             docker compose -f ./deploy/docker-compose-deploy.yml --env-file=.env pull
             docker compose -f ./deploy/docker-compose-deploy.yml --env-file=.env down
             docker compose -f ./deploy/docker-compose-deploy.yml --env-file=.env up -d
-            docker compose -f ./deploy/docker-compose-deploy.yml --env-file=.env exec django migrate
+            docker compose -f ./deploy/docker-compose-deploy.yml --env-file=.env exec django python manage.py migrate
