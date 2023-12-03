@@ -35,32 +35,32 @@ jobs:
 #          DB_PORT: 5432
 #          DB_HOST: 127.0.0.1
 
-#  docker_hub:
-#    name: Docker Hub
-#    runs-on: ubuntu-latest
+  docker_hub:
+    name: Docker Hub
+    runs-on: ubuntu-latest
 #    needs: tests
-#    env:
-#      USERNAME: ${{ secrets.DOCKER_USERNAME }}
-#      NAME_DJANGO: ${{ secrets.DOCKER_NAME_DJANGO }}
-#      NAME_NGINX: ${{ secrets.DOCKER_NAME_NGINX }}
-#      TOKEN: ${{ secrets.DOCKER_TOKEN }}
-#    steps:
-#      - uses: actions/checkout@main
-#      - name: Log in to Docker Hub
-#        run: echo $TOKEN | docker login -u $USERNAME --password-stdin
-#      - name: Build Django image
-#        run: docker build -t $USERNAME/$NAME_DJANGO:${GITHUB_REF:11} -f ./deploy/Dockerfile-Django .
-#      - name: Build Nginx image
-#        run: docker build -t $USERNAME/$NAME_NGINX:${GITHUB_REF:11} -f ./deploy/Dockerfile-Nginx .
-#      - name: Push Django image to Docker Hub
-#        run: docker push $USERNAME/$NAME_DJANGO:${GITHUB_REF:11}
-#      - name: Push Nginx image to Docker Hub
-#        run: docker push $USERNAME/$NAME_NGINX:${GITHUB_REF:11}
+    env:
+      USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      NAME_DJANGO: ${{ secrets.DOCKER_NAME_DJANGO }}
+      NAME_NGINX: ${{ secrets.DOCKER_NAME_NGINX }}
+      TOKEN: ${{ secrets.DOCKER_TOKEN }}
+    steps:
+      - uses: actions/checkout@main
+      - name: Log in to Docker Hub
+        run: echo $TOKEN | docker login -u $USERNAME --password-stdin
+      - name: Build Django image
+        run: docker build -t $USERNAME/$NAME_DJANGO:${GITHUB_REF:11} -f ./deploy/Dockerfile-Django .
+      - name: Build Nginx image
+        run: docker build -t $USERNAME/$NAME_NGINX:${GITHUB_REF:11} -f ./deploy/Dockerfile-Nginx .
+      - name: Push Django image to Docker Hub
+        run: docker push $USERNAME/$NAME_DJANGO:${GITHUB_REF:11}
+      - name: Push Nginx image to Docker Hub
+        run: docker push $USERNAME/$NAME_NGINX:${GITHUB_REF:11}
 
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-#    needs: docker_hub
+    needs: docker_hub
     steps:
       - uses: actions/checkout@main
       - name: Copy docker-compose-deploy.yml
