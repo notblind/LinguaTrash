@@ -51,12 +51,14 @@ jobs:
       - name: Create directories
         run: mkdir django && mkdir nginx
       - name: Build Django image
-        run: docker build -t $USERNAME/$NAME_DJANGO:${GITHUB_REF:11} -f ./deploy/Dockerfile-Django ./django
+        working-directory: ./django
+        run: docker build -t $USERNAME/$NAME_DJANGO:${GITHUB_REF:11} -f ../deploy/Dockerfile-Django .
       - name: Push Django image to Docker Hub
         working-directory: ./django
         run: docker push $USERNAME/$NAME_DJANGO:${GITHUB_REF:11}
       - name: Build Nginx image
-        run: docker build -t $USERNAME/$NAME_NGINX:${GITHUB_REF:11} -f ./deploy/Dockerfile-Nginx ./nginx
+        working-directory: ./nginx
+        run: docker build -t $USERNAME/$NAME_NGINX:${GITHUB_REF:11} -f ../deploy/Dockerfile-Nginx .
       - name: Push Nginx image to Docker Hub
         working-directory: ./nginx
         run: docker push $USERNAME/$NAME_NGINX:${GITHUB_REF:11}
