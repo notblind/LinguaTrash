@@ -3,11 +3,9 @@ WORKDIR /app/LinguaTrash
 COPY ./vue/package*.json ./
 RUN npm ci
 COPY ./vue .
-RUN ls
 RUN npm run build
-RUN ls
 
 
 FROM nginx:1.24 as production-stage
-COPY /app/LinguaTrash/dist /app/LinguaTrash
+COPY --from=build-stage /dist /app/LinguaTrash
 COPY ./deploy/nginx /etc/nginx/conf.d
