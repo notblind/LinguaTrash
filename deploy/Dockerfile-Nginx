@@ -7,4 +7,4 @@ RUN npm run build
 
 FROM nginx:1.24 as production-stage
 COPY --from=build-stage /app/LinguaTrash/dist /app/LinguaTrash
-COPY ./nginx /etc/nginx/conf.d
+COPY ./deploy/nginx /etc/nginx/conf.d
