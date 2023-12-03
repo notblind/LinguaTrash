@@ -53,6 +53,6 @@ jobs:
       - name: Push Django image to Docker Hub
         run: docker push $USERNAME/$NAME_DJANGO:${GITHUB_REF:11}
       - name: Build Nginx image
-        run: docker build -t $USERNAME/$NAME_NGINX:${GITHUB_REF:11} --output -f ./deploy/Dockerfile-Nginx .
+        run: docker build -t $USERNAME/$NAME_NGINX:${GITHUB_REF:11} -f ./deploy/Dockerfile-Nginx .
       - name: Push Nginx image to Docker Hub
         run: docker push $USERNAME/$NAME_NGINX:${GITHUB_REF:11}
