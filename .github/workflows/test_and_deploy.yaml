@@ -7,7 +7,6 @@ on:
 jobs:
   tests:
     runs-on: [ubuntu-latest]
-
     services:
       postgres:
         image: postgres
@@ -18,8 +17,6 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-python@v1
@@ -53,4 +50,4 @@ jobs:
       - name: Build image
         run: docker build -t $USERNAME/$NAME:${GITHUB_REF:11} -f ./deploy/Dockerfile-Django .
       - name: Push image to Docker Hub
-        run: docker push $USERNAME/$NAME:{GITHUB_REF:11}
+        run: docker push $USERNAME/$NAME:${GITHUB_REF:11}
