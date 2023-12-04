@@ -28,6 +28,8 @@ services:
     command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ../.env:/app/LinguaTrash/.env
+      - static:/app/LinguaTrash/deploy/static
+      - media:/app/LinguaTrash/deploy/media
     networks:
       - net_db
       - net_nginx
