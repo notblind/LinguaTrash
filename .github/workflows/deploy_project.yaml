@@ -1,9 +1,6 @@
 name: Deploy
 
-on:
-  workflow_run:
-    workflows: [ Django Tests ]
-    types: [ completed ]
+on: workflow_dispatch
 
 jobs:
   docker_hub:
